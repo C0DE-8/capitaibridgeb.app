@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 
 const DEFAULT_BANK_NAME = 'West Bridge Vault Reserve';
-const SUPPORT_EMAIL = 'support@westbridgevaultreserve.online';
+const SUPPORT_EMAIL = 'contact@capitaibridgeb.app';
 
 function isConfigured() {
   const user = String(process.env.GMAIL_USER || '').trim();

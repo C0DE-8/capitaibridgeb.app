@@ -15,8 +15,8 @@ app.set('trust proxy', 1);
 const allowedOrigins = new Set([
   'http://localhost:5173',
   'http://127.0.0.1:5173',
-  'https://middlesvilletrusted.online',
-  'https://www.middlesvilletrusted.online',
+  'https://capitaibridgeb.app',
+  'https://www.capitaibridgeb.app',
 ]);
 
 app.use(cors({
