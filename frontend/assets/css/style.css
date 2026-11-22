@@ -35,6 +35,14 @@
   --thm-primary-rgb: 255, 180, 0;
 }
 
+.bank-logo {
+  display: block;
+  width: auto;
+  max-width: 210px;
+  max-height: 58px;
+  object-fit: contain;
+}
+
 .auto-container {
   position: static;
   max-width: 1200px;
