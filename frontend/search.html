@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Capitai Bridge Bank</title>
+    <link rel="stylesheet" href="assets/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body id="top">
+    <main class="container py-5">
+        <a href="index.html" aria-label="Capitai Bridge Bank home">
+            <img src="assets/images/resources/capitai-bridge-logo-white.png" alt="Capitai Bridge Bank" class="bank-logo">
+        </a>
+        <h1 class="mt-4">Search the website</h1>
+        <form action="search.html" method="get" class="d-flex gap-2 my-4">
+            <label for="q" class="visually-hidden">Search terms</label>
+            <input id="q" name="q" class="form-control" type="search" required placeholder="What are you looking for?">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+        <p id="search-summary" aria-live="polite"></p>
+        <ul id="search-results" class="list-group"></ul>
+        <a class="btn btn-outline-primary mt-4" href="index.html">Return to Home</a>
+    </main>
+    <script>
+        const pages = [
+            ['Home', 'index.html', 'home banking capitai bridge'],
+            ['Accounts', 'accounts.html', 'accounts savings current deposits'],
+            ['Savings Account', 'account-savings.html', 'savings account'],
+            ['Current Account', 'account-current.html', 'current account'],
+            ['Fixed Deposit Account', 'account-fixed-dep.html', 'fixed deposit'],
+            ['Salary Account', 'account-salary.html', 'salary account'],
+            ['NRI Account', 'account-nri.html', 'nri account'],
+            ['Cards', 'cards.html', 'cards credit debit'],
+            ['Loans', 'loan-home.html', 'loans home personal vehicle education gold'],
+            ['About Us', 'about.html', 'about bank story'],
+            ['Careers', 'careers.html', 'careers jobs'],
+            ['News & Updates', 'blog.html', 'news updates blog'],
+            ['Frequently Asked Questions', 'faq.html', 'faq questions help'],
+            ['Contact Us', 'contact.html', 'contact support'],
+            ['Rates & Charges', 'rates.html', 'rates charges interest gold'],
+            ['Policies & Security', 'policies.html', 'privacy terms disclaimer security'],
+            ['Online Banking Login', 'auth/login.html', 'online banking login sign in']
+        ];
+        const params = new URLSearchParams(window.location.search);
+        const query = (params.get('q') || '').trim().toLowerCase();
+        const terms = query.split(/\s+/).filter(Boolean);
+        const results = pages.filter(([, , keywords]) =>
+            terms.length && terms.every(term => keywords.includes(term))
+        );
+        document.getElementById('q').value = params.get('q') || '';
+        document.getElementById('search-summary').textContent = query
+            ? (results.length ? `Results for “${params.get('q')}”` : `No pages found for “${params.get('q')}”. Try another search.`)
+            : 'Enter a keyword to find information and services.';
+        const list = document.getElementById('search-results');
+        results.forEach(([label, url]) => {
+            const item = document.createElement('li');
+            item.className = 'list-group-item';
+            const link = document.createElement('a');
+            link.href = url;
+            link.textContent = label;
+            item.appendChild(link);
+            list.appendChild(item);
+        });
+    </script>
+</body>
+</html>
