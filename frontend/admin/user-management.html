@@ -82,9 +82,9 @@
         .toast {
             position: fixed;
             top: 20px;
-            right: 20px;
-            min-width: 300px;
-            max-width: 500px;
+            right: 1rem;
+            min-width: min(300px, calc(100vw - 2rem));
+            max-width: min(500px, calc(100vw - 2rem));
             padding: 16px 20px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -523,11 +523,38 @@
         </div>
     </div>
 
+    <div id="userActionModal" class="modal" aria-hidden="true">
+        <section class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-lg w-full mx-4 p-6" role="alertdialog" aria-modal="true" aria-labelledby="userActionTitle" aria-describedby="userActionMessage" tabindex="-1">
+            <div class="flex items-start gap-4">
+                <div id="userActionIcon" class="flex-shrink-0 rounded-full bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300 p-3" aria-hidden="true">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <h3 id="userActionTitle" class="text-lg font-bold text-gray-900 dark:text-gray-100"></h3>
+                    <p id="userActionMessage" class="mt-2 text-sm text-gray-600 dark:text-gray-300 whitespace-pre-line"></p>
+                </div>
+            </div>
+            <div id="userActionTextGroup" class="hidden mt-5">
+                <label id="userActionTextLabel" for="userActionText" class="block text-sm font-medium text-gray-700 dark:text-gray-200"></label>
+                <input id="userActionText" type="text" autocomplete="off" spellcheck="false" class="mt-2 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" aria-describedby="userActionTextHint">
+                <p id="userActionTextHint" class="mt-2 text-xs text-gray-500 dark:text-gray-400"></p>
+            </div>
+            <div class="mt-6 flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
+                <button id="userActionCancel" type="button" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">Cancel</button>
+                <button id="userActionSecondary" type="button" class="hidden px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"></button>
+                <button id="userActionConfirm" type="button" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"></button>
+            </div>
+        </section>
+    </div>
+
     <script>
         const API_BASE_URL = window.getApiBaseUrl("admin");
         let currentPage = 1;
         let currentUserId = null;
         let usersById = {};
+        let userActionResolver = null;
         
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
@@ -585,7 +612,10 @@
 
         function showToast(message, type = 'info') {
             const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
+            const toastType = ['success', 'error', 'info', 'warning'].includes(type) ? type : 'info';
+            toast.className = `toast toast-${toastType}`;
+            toast.setAttribute('role', toastType === 'error' ? 'alert' : 'status');
+            toast.setAttribute('aria-live', toastType === 'error' ? 'assertive' : 'polite');
             
             const icon = {
                 success: '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>',
@@ -594,22 +624,144 @@
                 warning: '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>'
             };
             
-            toast.innerHTML = `
-                ${icon[type]}
-                <span class="flex-1">${message}</span>
-                <button onclick="this.parentElement.remove()" class="ml-2 hover:opacity-75">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            `;
+            toast.insertAdjacentHTML('afterbegin', icon[toastType]);
+
+            const messageElement = document.createElement('span');
+            messageElement.className = 'flex-1';
+            messageElement.textContent = String(message);
+            toast.appendChild(messageElement);
+
+            const closeButton = document.createElement('button');
+            closeButton.type = 'button';
+            closeButton.className = 'ml-2 hover:opacity-75';
+            closeButton.setAttribute('aria-label', 'Dismiss notification');
+            closeButton.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+            closeButton.addEventListener('click', () => toast.remove());
+            toast.appendChild(closeButton);
             
             document.body.appendChild(toast);
             
             setTimeout(() => {
-                toast.classList.add('hiding');
-                setTimeout(() => toast.remove(), 300);
+                if (toast.isConnected) {
+                    toast.classList.add('hiding');
+                    setTimeout(() => toast.remove(), 300);
+                }
             }, 5000);
+        }
+
+        function showUserActionDialog({
+            title,
+            message,
+            confirmLabel = 'Confirm',
+            secondaryLabel = '',
+            expectedText = '',
+            tone = 'danger'
+        }) {
+            const modal = document.getElementById('userActionModal');
+            const titleElement = document.getElementById('userActionTitle');
+            const messageElement = document.getElementById('userActionMessage');
+            const textGroup = document.getElementById('userActionTextGroup');
+            const textLabel = document.getElementById('userActionTextLabel');
+            const textInput = document.getElementById('userActionText');
+            const textHint = document.getElementById('userActionTextHint');
+            const cancelButton = document.getElementById('userActionCancel');
+            const secondaryButton = document.getElementById('userActionSecondary');
+            const confirmButton = document.getElementById('userActionConfirm');
+            const icon = document.getElementById('userActionIcon');
+
+            if (userActionResolver) userActionResolver(null);
+
+            titleElement.textContent = title;
+            messageElement.textContent = message;
+            confirmButton.textContent = confirmLabel;
+            const confirmColor = tone === 'neutral'
+                ? 'bg-blue-600 hover:bg-blue-700'
+                : 'bg-red-700 hover:bg-red-800';
+            confirmButton.className = `px-4 py-2 ${confirmColor} text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed`;
+            secondaryButton.textContent = secondaryLabel;
+            secondaryButton.classList.toggle('hidden', !secondaryLabel);
+            textGroup.classList.toggle('hidden', !expectedText);
+            textLabel.textContent = `Type ${expectedText} to continue.`;
+            textHint.textContent = 'Enter only the confirmation words shown above. The full instruction is not required.';
+            textInput.value = '';
+            confirmButton.disabled = !!expectedText;
+            icon.classList.toggle('bg-red-100', tone !== 'neutral');
+            icon.classList.toggle('text-red-700', tone !== 'neutral');
+            icon.classList.toggle('dark:bg-red-900/40', tone !== 'neutral');
+            icon.classList.toggle('dark:text-red-300', tone !== 'neutral');
+            icon.classList.toggle('bg-blue-100', tone === 'neutral');
+            icon.classList.toggle('text-blue-700', tone === 'neutral');
+            icon.classList.toggle('dark:bg-blue-900/40', tone === 'neutral');
+            icon.classList.toggle('dark:text-blue-300', tone === 'neutral');
+
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+
+            return new Promise(resolve => {
+                const previouslyFocused = document.activeElement;
+                let settled = false;
+                const finish = result => {
+                    if (settled) return;
+                    settled = true;
+                    modal.classList.remove('active');
+                    modal.setAttribute('aria-hidden', 'true');
+                    modal.removeEventListener('click', handleBackdropClick);
+                    document.removeEventListener('keydown', handleKeydown);
+                    textInput.removeEventListener('input', handleInput);
+                    cancelButton.removeEventListener('click', handleCancel);
+                    secondaryButton.removeEventListener('click', handleSecondary);
+                    confirmButton.removeEventListener('click', handleConfirm);
+                    userActionResolver = null;
+                    if (previouslyFocused instanceof HTMLElement && previouslyFocused.isConnected) {
+                        previouslyFocused.focus();
+                    }
+                    resolve(result);
+                };
+                const handleBackdropClick = event => {
+                    if (event.target === modal) finish(null);
+                };
+                const handleKeydown = event => {
+                    if (event.key === 'Escape') {
+                        event.preventDefault();
+                        finish(null);
+                    } else if (event.key === 'Tab') {
+                        const focusable = [
+                            ...(expectedText ? [textInput] : []),
+                            cancelButton,
+                            ...(secondaryLabel ? [secondaryButton] : []),
+                            confirmButton
+                        ].filter(element => !element.disabled && !element.classList.contains('hidden'));
+                        const currentIndex = focusable.indexOf(document.activeElement);
+                        if (event.shiftKey && currentIndex <= 0) {
+                            event.preventDefault();
+                            focusable[focusable.length - 1].focus();
+                        } else if (!event.shiftKey && currentIndex === focusable.length - 1) {
+                            event.preventDefault();
+                            focusable[0].focus();
+                        }
+                    } else if (event.key === 'Enter' && event.target === textInput && !confirmButton.disabled) {
+                        event.preventDefault();
+                        finish('confirm');
+                    }
+                };
+                const handleInput = () => {
+                    confirmButton.disabled = textInput.value.trim().toUpperCase() !== expectedText;
+                };
+                const handleCancel = () => finish(null);
+                const handleSecondary = () => finish('secondary');
+                const handleConfirm = () => {
+                    if (!confirmButton.disabled) finish('confirm');
+                };
+
+                userActionResolver = finish;
+                modal.addEventListener('click', handleBackdropClick);
+                document.addEventListener('keydown', handleKeydown);
+                textInput.addEventListener('input', handleInput);
+                cancelButton.addEventListener('click', handleCancel);
+                secondaryButton.addEventListener('click', handleSecondary);
+                confirmButton.addEventListener('click', handleConfirm);
+                (expectedText ? textInput : cancelButton).focus();
+            });
         }
         
         function setButtonLoading(button, loading) {
@@ -967,7 +1119,13 @@
         });
 
         async function impersonateUser(userId) {
-            if (!confirm('Are you sure you want to impersonate this user? You will be redirected to their dashboard.')) return;
+            const action = await showUserActionDialog({
+                title: 'Impersonate this user?',
+                message: 'You will be signed in as this user and redirected to their dashboard.',
+                confirmLabel: 'Continue',
+                tone: 'neutral'
+            });
+            if (action !== 'confirm') return;
 
             try {
                 showToast('Impersonating user...', 'info');
@@ -988,7 +1146,15 @@
         }
 
         async function toggleOTP(userId) {
-            const enabled = confirm('Enable login OTP for this user?\n\nClick OK to enable, Cancel to disable.');
+            const action = await showUserActionDialog({
+                title: 'Change login OTP?',
+                message: 'Choose whether login OTP should be enabled or disabled for this user.',
+                confirmLabel: 'Enable OTP',
+                secondaryLabel: 'Disable OTP',
+                tone: 'neutral'
+            });
+            if (action === null) return;
+            const enabled = action === 'confirm';
 
             try {
                 await axios.put(`${API_BASE_URL}/user/login-otp-toggle`, {
@@ -1002,9 +1168,12 @@
         }
         
         async function resetUserPin(userId) {
-            if (!confirm('Are you sure you want to reset this user\'s transaction PIN to 000000?\n\nThe user will need to change it immediately.')) {
-                return;
-            }
+            const action = await showUserActionDialog({
+                title: 'Reset transaction PIN?',
+                message: 'The PIN will be reset to 000000. The user will need to change it immediately.',
+                confirmLabel: 'Reset PIN'
+            });
+            if (action !== 'confirm') return;
 
             try {
                 showToast('Resetting PIN...', 'info');
@@ -1017,19 +1186,17 @@
 
         async function deleteUser(userId) {
             const user = usersById[userId] || {};
-            const username = user.username || '';
-            const isAdmin = !!user.is_admin;
+            const username = user.full_name || user.username || '';
+            const isAdmin = user.is_admin === true || Number(user.is_admin) === 1;
             const label = username ? `${username} (#${userId})` : `user #${userId}`;
-            const warning = isAdmin
-                ? `This account is also an admin account.\n\nType DELETE ADMIN to permanently delete ${label}.`
-                : `Type DELETE to permanently delete ${label}.`;
             const expected = isAdmin ? 'DELETE ADMIN' : 'DELETE';
-            const typed = prompt(`${warning}\n\nThis removes the user and related records. This cannot be undone.`);
-
-            if (typed !== expected) {
-                if (typed !== null) showToast('Delete cancelled: confirmation text did not match', 'warning');
-                return;
-            }
+            const action = await showUserActionDialog({
+                title: isAdmin ? 'Permanently delete this admin?' : 'Permanently delete this user?',
+                message: `${isAdmin ? 'This account has administrator access. ' : ''}${label} and related records will be permanently removed. This cannot be undone.`,
+                confirmLabel: 'Delete permanently',
+                expectedText: expected
+            });
+            if (action !== 'confirm') return;
 
             try {
                 showToast('Deleting user...', 'info');
