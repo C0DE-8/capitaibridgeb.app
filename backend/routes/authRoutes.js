@@ -9,6 +9,15 @@ const { logActivity } = require('../utils/activityLogger');
 const multer = require('multer');
 const path = require('path');
 
+function logAuthDatabaseError(operation, error) {
+  const details = {
+    code: error?.code,
+    errno: error?.errno,
+    sqlState: error?.sqlState,
+    message: error?.sqlMessage || error?.message
+  };
+  console.error(`[AUTH DB] ${operation}: ${JSON.stringify(details)}`);
+}
 
 function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000).toString();
@@ -257,7 +266,10 @@ router.post('/login', async (req, res) => {
     'SELECT * FROM users WHERE email = ? OR account_number = ?',
     [identifier, identifier],
     async (err, results) => {
-      if (err) return res.status(500).json({ error: 'Database error' });
+      if (err) {
+        logAuthDatabaseError('POST /api/auth/login users lookup', err);
+        return res.status(500).json({ error: 'Database error' });
+      }
       if (results.length === 0) return res.status(401).json({ error: 'Invalid credentials' });
 
       const user = results[0];
@@ -303,6 +315,7 @@ router.post('/login', async (req, res) => {
           [user.id, otp, otpExpiresAt],
           async (err2) => {
             if (err2) {
+              logAuthDatabaseError('POST /api/auth/login OTP insert', err2);
               logActivity(user.id, 'otp_error', 'Failed to store login OTP');
               return res.status(500).json({ error: 'Failed to save login OTP' });
             }
@@ -350,7 +363,11 @@ router.post('/login/verify-otp', (req, res) => {
   if (!email || !otp) return res.status(400).json({ error: 'Email and OTP required' });
 
   db.query('SELECT * FROM users WHERE email = ?', [email], (err, users) => {
-    if (err || users.length === 0) return res.status(404).json({ error: 'User not found' });
+    if (err) {
+      logAuthDatabaseError('POST /api/auth/login/verify-otp user lookup', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    if (users.length === 0) return res.status(404).json({ error: 'User not found' });
 
     const user = users[0];
 
@@ -358,13 +375,21 @@ router.post('/login/verify-otp', (req, res) => {
       'SELECT * FROM login_otps WHERE user_id = ? AND otp_code = ? AND otp_expires_at > NOW()',
       [user.id, otp],
       (err2, otps) => {
-        if (err2 || otps.length === 0) {
+        if (err2) {
+          logAuthDatabaseError('POST /api/auth/login/verify-otp OTP lookup', err2);
+          return res.status(500).json({ error: 'Database error' });
+        }
+        if (otps.length === 0) {
           logActivity(user.id, 'otp_failed', 'Invalid or expired OTP during login');
           return res.status(400).json({ error: 'Invalid or expired OTP' });
         }
 
         // OTP is valid, delete it and issue token
-        db.query('DELETE FROM login_otps WHERE user_id = ?', [user.id]);
+        db.query('DELETE FROM login_otps WHERE user_id = ?', [user.id], (deleteError) => {
+          if (deleteError) {
+            logAuthDatabaseError('POST /api/auth/login/verify-otp OTP cleanup', deleteError);
+          }
+        });
 
         const token = jwt.sign({ id: user.id, is_admin: user.is_admin }, process.env.JWT_SECRET, {
           expiresIn: '7h'

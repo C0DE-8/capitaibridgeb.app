@@ -314,7 +314,7 @@
 
       // ✅ allow either user.role === 'admin' OR user.is_admin truthy
       if (!token || (((!user.role || user.role !== "admin") && !user.is_admin))) {
-        window.location.href = "../auth/login.html";
+        window.location.href = "../auth/admin.html";
         return false;
       }
 
@@ -327,7 +327,7 @@
     function handleLogout() {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      window.location.href = "../auth/login.html";
+      window.location.href = "../auth/admin.html";
     }
 
     document.getElementById("logoutButton").addEventListener("click", handleLogout);

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1c23">
+    <title>Administrator Sign In - Capitai Bridge Bank</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../api.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#cf173c',
+                        dark: '#1a1c23',
+                        light: '#f8fafc',
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-900">
+    <main class="flex min-h-screen items-center justify-center px-4 py-10">
+        <div class="w-full max-w-md">
+            <header class="mb-6 text-center">
+                <a href="../index.html" aria-label="Capitai Bridge Bank home" class="inline-flex rounded-lg bg-white px-5 py-3">
+                    <img src="../assets/images/resources/capitai-bridge-logo.png" alt="Capitai Bridge Bank" class="h-10 w-auto object-contain">
+                </a>
+            </header>
+
+            <section class="rounded-2xl bg-white p-7 shadow-2xl sm:p-9" aria-labelledby="admin-title">
+                <div class="mb-7 text-center">
+                    <p class="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">Secure administrator access</p>
+                    <h1 id="admin-title" class="text-3xl font-bold text-slate-900">Admin sign in</h1>
+                    <p class="mt-2 text-slate-600">Sign in with an authorized administrator account.</p>
+                </div>
+
+                <div id="alertMessage" class="mb-5 hidden rounded-lg border p-4" role="alert" aria-live="polite"></div>
+
+                <form id="loginForm" class="space-y-5">
+                    <div>
+                        <label for="email" class="mb-2 block text-sm font-medium text-slate-700">Administrator email</label>
+                        <input id="email" name="email" type="email" autocomplete="username" required
+                            class="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                            placeholder="name@example.com">
+                    </div>
+                    <div>
+                        <label for="password" class="mb-2 block text-sm font-medium text-slate-700">Password</label>
+                        <input id="password" name="password" type="password" autocomplete="current-password" required
+                            class="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                            placeholder="Enter your password">
+                    </div>
+                    <button id="loginButton" type="submit"
+                        class="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 font-semibold text-white transition hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-70">
+                        <svg id="loginSpinner" class="spinner hidden h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                        </svg>
+                        <span id="loginButtonText">Sign in</span>
+                    </button>
+                </form>
+
+                <form id="otpForm" class="hidden space-y-5">
+                    <div>
+                        <label for="otp" class="mb-2 block text-sm font-medium text-slate-700">Email verification code</label>
+                        <input id="otp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code"
+                            pattern="[0-9]{6}" maxlength="6" required
+                            class="w-full rounded-lg border border-slate-300 px-4 py-3 text-center text-2xl tracking-[0.4em] outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                            placeholder="000000">
+                        <p class="mt-2 text-sm text-slate-500">Enter the 6-digit code sent to your administrator email.</p>
+                    </div>
+                    <button id="verifyButton" type="submit"
+                        class="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 font-semibold text-white transition hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-70">
+                        <svg id="otpSpinner" class="spinner hidden h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                        </svg>
+                        <span id="verifyButtonText">Verify and continue</span>
+                    </button>
+                    <button id="backButton" type="button" class="w-full py-2 text-sm font-medium text-slate-600 hover:text-primary">
+                        Back to sign in
+                    </button>
+                </form>
+
+                <div class="mt-6 border-t border-slate-200 pt-5 text-center">
+                    <a href="login.html" class="text-sm font-medium text-primary hover:text-red-800">Customer sign in</a>
+                </div>
+            </section>
+            <p class="mt-5 text-center text-xs text-slate-400">Authorized administrator access only.</p>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE_URL = window.getApiBaseUrl('auth');
+        const alertMessage = document.getElementById('alertMessage');
+        const loginForm = document.getElementById('loginForm');
+        const otpForm = document.getElementById('otpForm');
+        let adminEmail = '';
+
+        function showAlert(message, type = 'error') {
+            alertMessage.className = `mb-5 rounded-lg border p-4 ${type === 'error'
+                ? 'border-red-200 bg-red-50 text-red-800'
+                : 'border-green-200 bg-green-50 text-green-800'}`;
+            alertMessage.textContent = message;
+        }
+
+        function setLoading(button, spinner, label, loading, text) {
+            button.disabled = loading;
+            spinner.classList.toggle('hidden', !loading);
+            label.textContent = text;
+        }
+
+        function isAdministrator(user) {
+            return Number(user?.is_admin) === 1 || user?.role === 'admin';
+        }
+
+        function completeAdminSignIn(data) {
+            if (!data?.token || !isAdministrator(data.user)) {
+                showAlert('This account does not have administrator access.');
+                return;
+            }
+
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            window.location.replace('../admin/admin-dashboard.html');
+        }
+
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const button = document.getElementById('loginButton');
+            const spinner = document.getElementById('loginSpinner');
+            const label = document.getElementById('loginButtonText');
+            adminEmail = document.getElementById('email').value.trim();
+            setLoading(button, spinner, label, true, 'Signing in...');
+
+            try {
+                const response = await axios.post(`${API_BASE_URL}/login`, {
+                    identifier: adminEmail,
+                    password: document.getElementById('password').value
+                });
+
+                if (response.data.otp_required) {
+                    showAlert(response.data.message || 'Check your email for the verification code.', 'success');
+                    loginForm.classList.add('hidden');
+                    otpForm.classList.remove('hidden');
+                    document.getElementById('otp').focus();
+                } else {
+                    completeAdminSignIn(response.data);
+                }
+            } catch (error) {
+                showAlert(error.response?.data?.error || 'Sign in failed. Check your credentials and try again.');
+            } finally {
+                setLoading(button, spinner, label, false, 'Sign in');
+            }
+        });
+
+        otpForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const button = document.getElementById('verifyButton');
+            const spinner = document.getElementById('otpSpinner');
+            const label = document.getElementById('verifyButtonText');
+            setLoading(button, spinner, label, true, 'Verifying...');
+
+            try {
+                const response = await axios.post(`${API_BASE_URL}/login/verify-otp`, {
+                    email: adminEmail,
+                    otp: document.getElementById('otp').value.trim()
+                });
+                completeAdminSignIn(response.data);
+            } catch (error) {
+                showAlert(error.response?.data?.error || 'Verification failed. Check the code and try again.');
+            } finally {
+                setLoading(button, spinner, label, false, 'Verify and continue');
+            }
+        });
+
+        document.getElementById('backButton').addEventListener('click', () => {
+            otpForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+            document.getElementById('otp').value = '';
+            alertMessage.classList.add('hidden');
+            document.getElementById('password').focus();
+        });
+    </script>
+</body>
+</html>

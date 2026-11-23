@@ -194,7 +194,7 @@
             const user = JSON.parse(localStorage.getItem('user') || '{}');
             
             if (!token || (!user.role || user.role !== 'admin') && !user.is_admin) {
-                window.location.href = '../auth/login.html';
+                window.location.href = '../auth/admin.html';
                 return false;
             }
             return true;
@@ -203,13 +203,13 @@
         document.getElementById('logoutButton').addEventListener('click', () => {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            window.location.href = '../auth/login.html';
+            window.location.href = '../auth/admin.html';
         });
 
         document.getElementById('logoutButtonMobile').addEventListener('click', () => {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            window.location.href = '../auth/login.html';
+            window.location.href = '../auth/admin.html';
         });
 
         async function loadTickets() {

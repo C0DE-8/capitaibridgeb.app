@@ -552,7 +552,7 @@
     function checkAuth() {
       const token = localStorage.getItem('token');
       if (!token) {
-        window.location.href = '../auth/login.html';
+        window.location.href = '../auth/admin.html';
         return false;
       }
       return true;
@@ -560,7 +560,7 @@
 
     function logout() {
       localStorage.clear();
-      window.location.href = '../auth/login.html';
+      window.location.href = '../auth/admin.html';
     }
 
     document.getElementById('logoutBtn').addEventListener('click', logout);
