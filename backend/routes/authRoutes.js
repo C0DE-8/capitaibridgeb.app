@@ -108,10 +108,25 @@ router.post(
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      db.beginTransaction((txErr) => {
-        if (txErr) return res.status(500).json({ error: 'Database error', details: txErr.message });
+      db.getConnection((connectionErr, connection) => {
+        if (connectionErr) {
+          logAuthDatabaseError('POST /api/auth/register connection', connectionErr);
+          return res.status(500).json({ error: 'Database error' });
+        }
 
-        db.query(
+        connection.beginTransaction((txErr) => {
+          if (txErr) {
+            logAuthDatabaseError('POST /api/auth/register begin transaction', txErr);
+            connection.release();
+            return res.status(500).json({ error: 'Database error' });
+          }
+
+          const rollback = (status, body) => connection.rollback(() => {
+            connection.release();
+            res.status(status).json(body);
+          });
+
+          connection.query(
           `INSERT INTO users
             (username, password, full_name, email, is_admin, account_number, email_verified, acct_status)
            VALUES (?, ?, ?, ?, 0, NULL, 0, 'pending')`,
@@ -119,28 +134,32 @@ router.post(
           (err, result) => {
             if (err) {
               if (err.code === 'ER_DUP_ENTRY') {
-                return db.rollback(() => res.status(400).json({ error: 'Username or email already exists' }));
+                return rollback(400, { error: 'Username or email already exists' });
               }
-              return db.rollback(() => res.status(500).json({ error: 'Database error', details: err.message }));
+              logAuthDatabaseError('POST /api/auth/register user insert', err);
+              return rollback(500, { error: 'Database error' });
             }
 
             const userId = result.insertId;
 
-            db.query(
+            connection.query(
               `INSERT INTO user_onboarding
                 (user_id, first_name, middle_name, last_name, age, work_id, id_type, id_front_url, id_back_url, face_photo_url, phone, address, status)
                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')`,
               [userId, first_name, middle_name, last_name, ageNumber, work_id, cleanIdType, idFront, idBack, facePhoto, phone, address],
               (kycErr) => {
                 if (kycErr) {
-                  return db.rollback(() => res.status(500).json({ error: 'Failed to save onboarding details', details: kycErr.message }));
+                  logAuthDatabaseError('POST /api/auth/register onboarding insert', kycErr);
+                  return rollback(500, { error: 'Failed to save onboarding details' });
                 }
 
-                db.commit(async (commitErr) => {
+                connection.commit(async (commitErr) => {
                   if (commitErr) {
-                    return db.rollback(() => res.status(500).json({ error: 'Database error', details: commitErr.message }));
+                    logAuthDatabaseError('POST /api/auth/register commit', commitErr);
+                    return rollback(500, { error: 'Database error' });
                   }
 
+                  connection.release();
                   try {
                     await sendOnboardingSubmittedEmail(email, computedFullName);
                   } catch (emailError) {
@@ -154,7 +173,8 @@ router.post(
               }
             );
           }
-        );
+          );
+        });
       });
     } catch (error) {
       res.status(500).json({ error: 'Registration failed', details: error.message });

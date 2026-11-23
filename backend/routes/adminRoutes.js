@@ -268,12 +268,23 @@ router.patch('/profile', authenticateToken, checkAdmin, (req, res) => {
   }
 
   // Use a transaction to keep things consistent
-  db.beginTransaction(err => {
-    if (err) return res.status(500).json({ error: 'Database error', details: err.message });
+  db.getConnection((connectionErr, connection) => {
+    if (connectionErr) return res.status(500).json({ error: 'Database error', details: connectionErr.message });
+
+    connection.beginTransaction(err => {
+      if (err) {
+        connection.release();
+        return res.status(500).json({ error: 'Database error', details: err.message });
+      }
+
+      const rollback = (error) => connection.rollback(() => {
+        connection.release();
+        res.status(500).json({ error: 'Database error', details: error.message });
+      });
 
     const updateUsers = cb => {
       if (parts.length === 0) return cb(null);
-      db.query(
+      connection.query(
         `UPDATE users SET ${parts.join(', ')} WHERE id = ? LIMIT 1`,
         [...vals, adminId],
         cb
@@ -283,14 +294,14 @@ router.patch('/profile', authenticateToken, checkAdmin, (req, res) => {
     const upsertImage = cb => {
       if (isNil(profile_image_url)) return cb(null);
       // Try UPDATE first
-      db.query(
+      connection.query(
         'UPDATE user_images SET image_url = ? WHERE user_id = ?',
         [profile_image_url, adminId],
         (e, r) => {
           if (e) return cb(e);
           if (r.affectedRows > 0) return cb(null);
           // Else INSERT
-          db.query(
+          connection.query(
             'INSERT INTO user_images (user_id, image_url) VALUES (?, ?)',
             [adminId, profile_image_url],
             cb
@@ -300,19 +311,27 @@ router.patch('/profile', authenticateToken, checkAdmin, (req, res) => {
     };
 
     updateUsers(e1 => {
-      if (e1) return db.rollback(() => res.status(500).json({ error: 'Database error', details: e1.message }));
+      if (e1) return rollback(e1);
       upsertImage(e2 => {
-        if (e2) return db.rollback(() => res.status(500).json({ error: 'Database error', details: e2.message }));
-        db.commit(e3 => {
-          if (e3) return db.rollback(() => res.status(500).json({ error: 'Database error', details: e3.message }));
+        if (e2) return rollback(e2);
+        connection.commit(e3 => {
+          if (e3) return rollback(e3);
           // Return fresh record
-          db.query(SELECT_USER_JOIN, [adminId], (e4, rows) => {
-            if (e4) return res.status(500).json({ error: 'Database error', details: e4.message });
-            if (!rows || rows.length === 0) return res.status(404).json({ error: 'Admin not found' });
+          connection.query(SELECT_USER_JOIN, [adminId], (e4, rows) => {
+            if (e4) {
+              connection.release();
+              return res.status(500).json({ error: 'Database error', details: e4.message });
+            }
+            if (!rows || rows.length === 0) {
+              connection.release();
+              return res.status(404).json({ error: 'Admin not found' });
+            }
+            connection.release();
             res.json({ user: rows[0] });
           });
         });
       });
+    });
     });
   });
 });
@@ -738,12 +757,23 @@ router.patch('/users/:id', authenticateToken, checkAdmin, (req, res) => {
     return res.status(400).json({ error: 'No update fields provided' });
   }
 
-  db.beginTransaction(err => {
-    if (err) return res.status(500).json({ error: 'Database error', details: err.message });
+  db.getConnection((connectionErr, connection) => {
+    if (connectionErr) return res.status(500).json({ error: 'Database error', details: connectionErr.message });
+
+    connection.beginTransaction(err => {
+      if (err) {
+        connection.release();
+        return res.status(500).json({ error: 'Database error', details: err.message });
+      }
+
+      const rollback = (error) => connection.rollback(() => {
+        connection.release();
+        res.status(500).json({ error: 'Database error', details: error.message });
+      });
 
     const updateUsers = cb => {
       if (parts.length === 0) return cb(null);
-      db.query(
+      connection.query(
         `UPDATE users SET ${parts.join(', ')} WHERE id = ? LIMIT 1`,
         [...vals, userId],
         cb
@@ -752,13 +782,13 @@ router.patch('/users/:id', authenticateToken, checkAdmin, (req, res) => {
 
     const upsertImage = cb => {
       if (!wantsImage) return cb(null);
-      db.query(
+      connection.query(
         'UPDATE user_images SET image_url = ? WHERE user_id = ?',
         [profile_image_url, userId],
         (e, r) => {
           if (e) return cb(e);
           if (r.affectedRows > 0) return cb(null);
-          db.query(
+          connection.query(
             'INSERT INTO user_images (user_id, image_url) VALUES (?, ?)',
             [userId, profile_image_url],
             cb
@@ -785,7 +815,7 @@ router.patch('/users/:id', authenticateToken, checkAdmin, (req, res) => {
       // If somehow neither provided, skip
       if (setParts.length === 0) return cb(null);
 
-      db.query(
+      connection.query(
         `UPDATE accounts SET ${setParts.join(', ')} WHERE user_id = ?`,
         [...setVals, userId],
         (e, r) => {
@@ -810,7 +840,7 @@ router.patch('/users/:id', authenticateToken, checkAdmin, (req, res) => {
             qs.push('NOW()');
           }
 
-          db.query(
+          connection.query(
             `INSERT INTO accounts (${cols.join(',')}) VALUES (${qs.join(',')})`,
             ivs,
             cb
@@ -820,25 +850,33 @@ router.patch('/users/:id', authenticateToken, checkAdmin, (req, res) => {
     };
 
     updateUsers(e1 => {
-      if (e1) return db.rollback(() => res.status(500).json({ error: 'Database error', details: e1.message }));
+      if (e1) return rollback(e1);
 
       upsertImage(e2 => {
-        if (e2) return db.rollback(() => res.status(500).json({ error: 'Database error', details: e2.message }));
+        if (e2) return rollback(e2);
 
         upsertAccounts(e3 => {
-          if (e3) return db.rollback(() => res.status(500).json({ error: 'Database error', details: e3.message }));
+          if (e3) return rollback(e3);
 
-          db.commit(e4 => {
-            if (e4) return db.rollback(() => res.status(500).json({ error: 'Database error', details: e4.message }));
+          connection.commit(e4 => {
+            if (e4) return rollback(e4);
 
             // Return fresh record
-            db.query(SELECT_USER_JOIN, [userId], (e5, rows) => {
-              if (e5) return res.status(500).json({ error: 'Database error', details: e5.message });
-              if (!rows || rows.length === 0) return res.status(404).json({ error: 'User not found' });
+            connection.query(SELECT_USER_JOIN, [userId], (e5, rows) => {
+              if (e5) {
+                connection.release();
+                return res.status(500).json({ error: 'Database error', details: e5.message });
+              }
+              if (!rows || rows.length === 0) {
+                connection.release();
+                return res.status(404).json({ error: 'User not found' });
+              }
+              connection.release();
               res.json({ user: rows[0] });
             });
           });
         });
+      });
       });
     });
   });
@@ -937,9 +975,10 @@ router.post('/onboarding/:id/approve', authenticateToken, checkAdmin, async (req
   const onboardingId = Number(req.params.id) || 0;
   if (!onboardingId) return res.status(400).json({ error: 'Invalid onboarding id' });
 
-  const conn = db.promise();
+  let conn;
 
   try {
+    conn = await db.promise().getConnection();
     await conn.beginTransaction();
 
     const [rows] = await conn.query(
@@ -1023,9 +1062,13 @@ router.post('/onboarding/:id/approve', authenticateToken, checkAdmin, async (req
       }
     });
   } catch (err) {
-    await conn.rollback();
+    if (conn) {
+      try { await conn.rollback(); } catch (_) {}
+    }
     console.error('❌ Approval error:', err);
     res.status(500).json({ error: 'Failed to approve onboarding', details: err.message });
+  } finally {
+    conn?.release();
   }
 });
 
@@ -1036,9 +1079,10 @@ router.post('/onboarding/:id/reject', authenticateToken, checkAdmin, async (req,
   if (!onboardingId) return res.status(400).json({ error: 'Invalid onboarding id' });
   if (!reason) return res.status(400).json({ error: 'Rejection reason is required' });
 
-  const conn = db.promise();
+  let conn;
 
   try {
+    conn = await db.promise().getConnection();
     await conn.beginTransaction();
 
     const [rows] = await conn.query(
@@ -1081,9 +1125,13 @@ router.post('/onboarding/:id/reject', authenticateToken, checkAdmin, async (req,
 
     res.json({ message: 'Onboarding rejected.' });
   } catch (err) {
-    await conn.rollback();
+    if (conn) {
+      try { await conn.rollback(); } catch (_) {}
+    }
     console.error('❌ Rejection error:', err);
     res.status(500).json({ error: 'Failed to reject onboarding', details: err.message });
+  } finally {
+    conn?.release();
   }
 });
 // ─────────────────────────────────────────────
@@ -1764,8 +1812,7 @@ router.post('/users/:user_id/simulate/transactions', authenticateToken, checkAdm
 
     const simBatch = (typeof crypto.randomUUID === 'function') ? crypto.randomUUID() : crypto.randomBytes(16).toString('hex');
 
-    // single-connection transaction using your `db` (no pool)
-    const conn = db.promise();
+    const conn = await db.promise().getConnection();
     try {
       await conn.beginTransaction();
 
@@ -1806,6 +1853,8 @@ router.post('/users/:user_id/simulate/transactions', authenticateToken, checkAdm
     } catch (e) {
       await conn.rollback();
       throw e;
+    } finally {
+      conn.release();
     }
 
     res.json({
@@ -1978,7 +2027,7 @@ router.post('/users/:user_id/transactions/sim-refresh',
                       : scope === 'row'  ? 'id'
                       : 'DATE(created_at)'; // default 'day'
 
-    const conn = db.promise();
+    const conn = await db.promise().getConnection();
 
     try {
       await conn.beginTransaction();
@@ -2105,6 +2154,8 @@ router.post('/users/:user_id/transactions/sim-refresh',
       try { await conn.rollback(); } catch {}
       console.error('sim-refresh error:', e);
       res.status(500).json({ error: 'sim_refresh_failed', detail: String(e.message || e) });
+    } finally {
+      conn.release();
     }
   }
 );
@@ -3075,8 +3126,9 @@ router.get('/bill-payments', authenticateToken, checkAdmin, async (req, res) => 
 
 // Admin confirms a bill or airtime request ✅ PUT /admin/bill-payments/:id/confirm
 router.put('/bill-payments/:id/confirm', authenticateToken, checkAdmin, async (req, res) => {
-  const conn = db.promise();
+  let conn;
   try {
+    conn = await db.promise().getConnection();
     const paymentId = req.params.id;
     const reviewedAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
@@ -3123,9 +3175,13 @@ router.put('/bill-payments/:id/confirm', authenticateToken, checkAdmin, async (r
     await conn.commit();
     res.json({ message: 'Bill payment confirmed successfully' });
   } catch (error) {
-    try { await conn.rollback(); } catch (_) {}
+    if (conn) {
+      try { await conn.rollback(); } catch (_) {}
+    }
     console.error('❌ Confirm bill payment error:', error);
     res.status(500).json({ error: 'Failed to confirm bill payment' });
+  } finally {
+    conn?.release();
   }
 });
 
@@ -3186,8 +3242,9 @@ router.get('/deposits', authenticateToken, checkAdmin, async (req, res) => {
 });
 // Admin confirms a deposit ✅ PUT /admin/deposit/:id/confirm
 router.put('/deposit/:id/confirm', authenticateToken, checkAdmin, async (req, res) => {
-  const conn = db.promise();
+  let conn;
   try {
+    conn = await db.promise().getConnection();
     const depositId = req.params.id;
     const reviewedAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
@@ -3230,9 +3287,13 @@ router.put('/deposit/:id/confirm', authenticateToken, checkAdmin, async (req, re
     await conn.commit();
     res.json({ message: 'Deposit confirmed successfully' });
   } catch (error) {
-    try { await conn.rollback(); } catch (_) {}
+    if (conn) {
+      try { await conn.rollback(); } catch (_) {}
+    }
     console.error('❌ Confirm deposit error:', error);
     res.status(500).json({ error: 'Failed to confirm deposit' });
+  } finally {
+    conn?.release();
   }
 });
 // Admin rejects a deposit ❌ PUT /admin/deposit/:id/reject
@@ -3549,9 +3610,10 @@ router.delete('/users/:id', authenticateToken, checkAdmin, async (req, res) => {
     return res.status(403).json({ error: 'You cannot delete your own admin account here' });
   }
 
-  const conn = db.promise();
+  let conn;
 
   try {
+    conn = await db.promise().getConnection();
     await conn.beginTransaction();
 
     const [users] = await conn.query(
@@ -3617,9 +3679,13 @@ router.delete('/users/:id', authenticateToken, checkAdmin, async (req, res) => {
       },
     });
   } catch (err) {
-    try { await conn.rollback(); } catch (_) {}
+    if (conn) {
+      try { await conn.rollback(); } catch (_) {}
+    }
     console.error('❌ DB ERROR [/admin/users/:id DELETE]:', err);
     return res.status(500).json({ error: 'Failed to delete user', details: err.message });
+  } finally {
+    conn?.release();
   }
 });
 
