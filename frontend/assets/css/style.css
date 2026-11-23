@@ -1106,6 +1106,38 @@ select:focus {
   animation-delay: 1.5s;
 }
 
+.handle-preloader .animation-preloader .txt-loading .letters-loading:nth-child(9):before {
+  animation-delay: 1.7s;
+}
+
+.handle-preloader .animation-preloader .txt-loading .letters-loading:nth-child(10):before {
+  animation-delay: 1.9s;
+}
+
+.handle-preloader .animation-preloader .txt-loading .letters-loading:nth-child(11):before {
+  animation-delay: 2.1s;
+}
+
+.handle-preloader .animation-preloader .txt-loading .letters-loading:nth-child(12):before {
+  animation-delay: 2.3s;
+}
+
+.handle-preloader .animation-preloader .txt-loading .letters-loading:nth-child(13):before {
+  animation-delay: 2.5s;
+}
+
+.handle-preloader .animation-preloader .txt-loading .word-gap {
+  margin-right: 0.4em;
+}
+
+@media (max-width: 767px) {
+  .handle-preloader .animation-preloader .txt-loading .letters-loading {
+    font-size: clamp(24px, 7vw, 48px);
+    line-height: 1;
+    letter-spacing: clamp(2px, 1vw, 8px);
+  }
+}
+
 
 /**
 animation: spinner 1s infinite linear;
