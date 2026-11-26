@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Farmers Credits Union</title>
+    <title>Dashboard - CapitaiBridge</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../api.js"></script>
@@ -12,9 +12,9 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#14532d',
-                        secondary: '#16a34a',
-                        accent: '#f4c542',
+                        primary: '#991b1b',
+                        secondary: '#dc2626',
+                        accent: '#f87171',
                         dark: '#0f172a',
                         light: '#f8fafc',
                     }
@@ -60,7 +60,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-primary">Farmers Credits Union</h1>
+                    <h1 class="text-2xl font-bold text-primary">CapitaiBridge</h1>
                     <div class="hidden lg:block ml-10">
                         <div class="flex items-baseline space-x-4">
                             <a href="dashboard.html" class="text-primary font-medium border-b-2 border-primary pb-1 px-3 py-2">Dashboard</a>
@@ -233,7 +233,7 @@
                     <a href="deposit.html" class="block w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium text-sm text-center">
                         Deposit Funds
                     </a>
-                    <a href="wire-transfer.html" class="block w-full bg-primary text-white py-3 rounded-lg hover:bg-green-900 transition-colors font-medium text-sm text-center">
+                    <a href="wire-transfer.html" class="block w-full bg-primary text-white py-3 rounded-lg hover:bg-red-900 transition-colors font-medium text-sm text-center">
                         Wire Transfer
                     </a>
                     <a href="local-transfer.html" class="block w-full bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium text-sm text-center">
@@ -300,7 +300,7 @@
             Contact Support
           </button>
           <button id="statusContinueBtn"
-                  class="hidden px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-green-900 transition-colors">
+                  class="hidden px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-red-900 transition-colors">
             OK, Continue
           </button>
           <button id="statusLogoutBtn"
@@ -772,7 +772,5 @@
             loadTransactions();
         })();
     </script>
-<script src="../js/live-chat.js"></script>
-<noscript>Powered by <a href="https://www.smartsupp.com" target="_blank" rel="noopener">Smartsupp</a></noscript>
 </body>
 </html>

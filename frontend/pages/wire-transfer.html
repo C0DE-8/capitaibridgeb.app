@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Farmers Credits Union</title>
+  <title>CapitaiBridge</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../api.js"></script>
@@ -13,9 +13,9 @@
       theme: {
         extend: {
           colors: {
-            primary: "#14532d",
-            secondary: "#16a34a",
-            accent: "#f4c542",
+            primary: "#991b1b",
+            secondary: "#dc2626",
+            accent: "#f87171",
             dark: "#0f172a",
             light: "#f8fafc",
           },
@@ -174,7 +174,7 @@
   </style>
 </head>
 
-<body class="bg-gradient-to-br from-green-50 via-white to-green-50 min-h-screen">
+<body class="bg-gradient-to-br from-red-50 via-white to-red-50 min-h-screen">
 
   <!-- ✅ PRELOADER -->
   <div id="preloader">
@@ -404,7 +404,7 @@
 
         <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
           <button type="submit" id="submitBtn"
-                  class="flex-1 bg-primary text-white py-3 rounded-lg hover:bg-green-900 transition-colors font-medium shadow-lg flex items-center justify-center space-x-2">
+                  class="flex-1 bg-primary text-white py-3 rounded-lg hover:bg-red-900 transition-colors font-medium shadow-lg flex items-center justify-center space-x-2">
             <svg id="btnSpinner" class="hidden w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor"
@@ -446,7 +446,7 @@
       </div>
 
       <div class="mt-5 flex gap-3">
-        <button id="mmPrimaryBtn" class="flex-1 bg-primary text-white py-3 rounded-lg hover:bg-green-900 transition-colors font-medium shadow-lg">
+        <button id="mmPrimaryBtn" class="flex-1 bg-primary text-white py-3 rounded-lg hover:bg-red-900 transition-colors font-medium shadow-lg">
           Okay
         </button>
         <button id="mmSecondaryBtn" class="flex-1 bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium hidden">
@@ -1141,7 +1141,5 @@
       }
     })();
   </script>
-<script src="../js/live-chat.js"></script>
-<noscript>Powered by <a href="https://www.smartsupp.com" target="_blank" rel="noopener">Smartsupp</a></noscript>
 </body>
 </html>

@@ -219,8 +219,8 @@ li{
 }
 
 :root {
-  --main-color-one: #d9911f;
-  --main-color-two: #0f7f4f;
+  --main-color-one: #dc2626;
+  --main-color-two: #991b1b;
 }
 
 /* Spacing */
@@ -1933,7 +1933,7 @@ table tr td, th{
 	height: 220px;
 	width: 220px;
 	border-radius: 50%;
-	background: linear-gradient(20deg, var(--main-color-two) 23%, #02a3f4 98%);
+	background: linear-gradient(20deg, var(--main-color-two) 23%, #dc2626 98%);
 }
 
 .experience h5{
