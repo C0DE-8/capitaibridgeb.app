@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Capitai Bridge Bank</title>
+    <title>Dashboard - Farmers Credits Union</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../api.js"></script>
@@ -12,10 +12,10 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#cf173c',
-                        secondary: '#b20f34',
-                        accent: '#ef6b83',
-                        dark: '#1a1c23',
+                        primary: '#14532d',
+                        secondary: '#16a34a',
+                        accent: '#f4c542',
+                        dark: '#0f172a',
                         light: '#f8fafc',
                     }
                 }
@@ -23,13 +23,6 @@
         }
     </script>
     <style>
-        body {
-            background-image:
-                radial-gradient(ellipse at 10% 0%, rgba(239, 107, 131, 0.1), transparent 36rem),
-                radial-gradient(ellipse at 100% 20%, rgba(99, 102, 241, 0.08), transparent 34rem);
-            background-attachment: fixed;
-        }
-
         @keyframes shimmer {
             0% { background-position: -1000px 0; }
             100% { background-position: 1000px 0; }
@@ -59,116 +52,15 @@
             from { opacity: 0; transform: translateY(-5px); }
             to   { opacity: 1; transform: translateY(0); }
         }
-
-        .dashboard-card {
-            transition: transform 180ms ease, box-shadow 180ms ease;
-        }
-
-        .dashboard-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 18px 36px -20px rgba(31, 41, 55, 0.3);
-        }
-
-        .balance-flip {
-            height: 285px;
-            perspective: 1200px;
-        }
-
-        .atm-card {
-            height: 285px;
-            isolation: isolate;
-            background:
-                radial-gradient(ellipse at 82% 12%, rgba(147, 197, 253, 0.3), transparent 35%),
-                radial-gradient(ellipse at 10% 100%, rgba(207, 23, 60, 0.32), transparent 46%),
-                linear-gradient(135deg, #172033 0%, #202c42 48%, #101827 100%);
-            transition: transform 280ms ease, box-shadow 280ms ease, background-position 500ms ease;
-        }
-
-        .atm-card::before {
-            position: absolute;
-            z-index: 1;
-            inset: -60% -80%;
-            background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.04) 48%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.04) 52%, transparent 58%);
-            content: "";
-            pointer-events: none;
-            transform: translateX(-35%) rotate(8deg);
-            transition: transform 650ms ease;
-        }
-
-        .atm-card:hover {
-            transform: translateY(-5px) rotateX(2deg) rotateY(-1deg);
-            box-shadow: 0 24px 44px -22px rgba(15, 23, 42, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.14);
-        }
-
-        .atm-card:hover::before {
-            transform: translateX(35%) rotate(8deg);
-        }
-
-        .atm-chip {
-            background: linear-gradient(135deg, #fff2c2 0%, #d7b86a 45%, #f8e6a3 100%);
-            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.55), 0 2px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .balance-flip-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 650ms cubic-bezier(0.2, 0.75, 0.25, 1);
-        }
-
-        .balance-flip.is-flipped .balance-flip-inner {
-            transform: rotateY(180deg);
-        }
-
-        .balance-face {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            border-radius: 1rem;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-
-        .balance-face-back {
-            transform: rotateY(180deg);
-        }
-
-        .cash-flow-bar {
-            min-height: 4px;
-            border-radius: 0.65rem 0.65rem 0.2rem 0.2rem;
-            transition: height 250ms ease;
-        }
-
-        @media (max-width: 639px) {
-            .balance-flip,
-            .atm-card {
-                height: 300px;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .dashboard-card,
-            .cash-flow-bar,
-            .balance-flip-inner,
-            .atm-card,
-            .atm-card::before {
-                transition: none;
-            }
-
-            .atm-card:hover {
-                transform: none;
-            }
-        }
     </style>
 </head>
 <body class="bg-light min-h-screen">
   
-    <nav class="sticky top-0 z-50 border-b border-white/70 bg-white/80 shadow-sm backdrop-blur-xl">
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <img src="../assets/images/resources/capitai-bridge-logo-white.png" alt="Capitai Bridge Bank" class="h-10 w-auto object-contain">
+                    <h1 class="text-2xl font-bold text-primary">Farmers Credits Union</h1>
                     <div class="hidden lg:block ml-10">
                         <div class="flex items-baseline space-x-4">
                             <a href="dashboard.html" class="text-primary font-medium border-b-2 border-primary pb-1 px-3 py-2">Dashboard</a>
@@ -230,7 +122,7 @@
         </div>
         <div id="mobileMenu" class="hidden lg:hidden border-t border-gray-200 bg-white">
             <div class="px-4 py-3 space-y-2">
-                <a href="dashboard.html" class="block text-primary font-medium px-3 py-2 rounded-md bg-red-50">Dashboard</a>
+                <a href="dashboard.html" class="block text-primary font-medium px-3 py-2 rounded-md bg-green-50">Dashboard</a>
                 <a href="wire-transfer.html" class="block text-gray-700 hover:bg-gray-50 px-3 py-2 rounded-md">Wire Transfer</a>
                 <a href="local-transfer.html" class="block text-gray-700 hover:bg-gray-50 px-3 py-2 rounded-md">Local Transfer</a>
                 <a href="self-transfer.html" class="block text-gray-700 hover:bg-gray-50 px-3 py-2 rounded-md">Self Transfer</a>
@@ -241,163 +133,89 @@
     </nav>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
-            <div>
-                <p class="text-sm font-semibold uppercase tracking-wider text-primary mb-2">Your overview</p>
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, <span id="userFullName"></span>!</h2>
-                <p class="text-gray-600">Here's an overview of your accounts</p>
-            </div>
-            <div class="rounded-2xl border border-white/70 bg-white/70 px-5 py-3 shadow-sm backdrop-blur-xl" aria-live="polite">
-                <p id="dashboardClock" class="text-lg font-bold tabular-nums text-gray-900">--:--:--</p>
-                <p id="dashboardDate" class="text-xs text-gray-500">Loading local time…</p>
-            </div>
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, <span id="userFullName"></span>!</h2>
+            <p class="text-gray-600">Here's an overview of your accounts</p>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <div class="dashboard-card balance-flip" id="totalBalanceCard">
-                <div class="balance-flip-inner">
-                    <section class="balance-face relative bg-gradient-to-br from-primary via-red-800 to-red-950 p-6 text-white shadow-xl" aria-label="Total balance" aria-hidden="false">
-                        <div class="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
-                        <div class="absolute -right-12 -top-16 h-48 w-48 rounded-full bg-white/10 blur-2xl"></div>
-                        <div class="absolute -bottom-20 -left-12 h-40 w-40 rounded-full bg-rose-300/10 blur-2xl"></div>
-                        <div class="relative z-10 flex h-full flex-col">
-                            <div class="flex items-start justify-between gap-3">
-                                <div>
-                                    <p class="mb-1 text-sm font-medium text-red-100">Total Balance</p>
-                                    <p class="text-xs text-red-200">Checking + Savings</p>
-                                </div>
-                                <button id="toggleBalanceVisibility" data-balance-toggle type="button" class="rounded-full border border-white/20 bg-white/10 p-2.5 text-white shadow-sm backdrop-blur-md transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/80" aria-label="Hide balances" aria-pressed="false" title="Hide balances">
-                                    <svg data-eye-open class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M2.5 12s3.4-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.4 6.5-9.5 6.5S2.5 12 2.5 12Z"></path>
-                                        <circle cx="12" cy="12" r="3" stroke-width="1.8"></circle>
-                                    </svg>
-                                    <svg data-eye-closed class="hidden h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="m3 3 18 18M10.6 5.6A10.7 10.7 0 0 1 12 5.5c6.1 0 9.5 6.5 9.5 6.5a15.7 15.7 0 0 1-3.1 3.8M6.2 6.2C3.8 7.8 2.5 12 2.5 12s3.4 6.5 9.5 6.5c1.3 0 2.5-.3 3.5-.8"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="my-auto py-5">
-                                <p class="mb-1 text-xs font-medium uppercase tracking-wider text-red-200">Available across accounts</p>
-                                <p class="break-words text-3xl font-bold tracking-tight sm:text-4xl" id="totalBalance">
-                                    <span class="skeleton-loader" style="width: 180px; height: 40px;"></span>
+            <div class="relative bg-gradient-to-br from-primary via-green-900 to-green-950 rounded-2xl p-6 text-white shadow-2xl overflow-hidden backdrop-blur-xl cursor-pointer" id="totalBalanceCard">
+                <div class="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+                <div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -mr-20 -mt-20"></div>
+                <div class="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full -ml-16 -mb-16"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <p class="text-green-100 text-sm mb-1 font-medium">Total Balance</p>
+                            <p class="text-xs text-green-200">All Accounts • Click to toggle</p>
+                        </div>
+                        <svg class="w-10 h-10 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="mt-8">
+                        <p class="text-4xl font-bold mb-1" id="totalBalance">
+                            <span class="skeleton-loader" style="width: 180px; height: 40px;"></span>
+                        </p>
+                        <div class="flex items-center space-x-4 mt-4 text-sm">
+                            <div>
+                                <p class="text-green-200 text-xs">Checking</p>
+                                <p class="font-semibold" id="currentBalance">
+                                    <span class="skeleton-loader" style="width: 100px; height: 20px;"></span>
                                 </p>
                             </div>
-                            <div class="flex items-center justify-between gap-3 border-t border-white/20 pt-4">
-                                <p class="text-xs text-red-100">Your money, at a glance</p>
-                                <button id="showAccountsButton" type="button" class="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/25 bg-white/15 px-3 py-2 text-xs font-semibold text-white backdrop-blur-md transition hover:bg-white/25 focus:outline-none focus:ring-2 focus:ring-white/80" aria-label="Flip to account balances">
-                                    Accounts <span aria-hidden="true">↗</span>
-                                </button>
+                            <div class="h-8 w-px bg-white/30"></div>
+                            <div>
+                                <p class="text-green-200 text-xs">Savings</p>
+                                <p class="font-semibold" id="savingsBalance">
+                                    <span class="skeleton-loader" style="width: 100px; height: 20px;"></span>
+                                </p>
                             </div>
                         </div>
-                    </section>
-                    <section class="balance-face balance-face-back border border-white/80 bg-white/75 p-5 text-gray-900 shadow-xl backdrop-blur-2xl sm:p-6" aria-label="Checking and savings balances" aria-hidden="true" inert>
-                        <div class="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-rose-200/50 blur-3xl"></div>
-                        <div class="relative z-10 flex h-full flex-col">
-                            <div class="flex items-center justify-between gap-2">
-                                <div>
-                                    <p class="text-sm font-bold text-gray-900">Your accounts</p>
-                                    <p class="text-xs text-gray-500">Balances at a glance</p>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <button id="toggleBalanceVisibilityBack" data-balance-toggle type="button" class="rounded-full border border-gray-200 bg-white/80 p-2 text-gray-700 shadow-sm transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-primary/40" aria-label="Hide balances" aria-pressed="false" title="Hide balances">
-                                        <svg data-eye-open class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M2.5 12s3.4-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.4 6.5-9.5 6.5S2.5 12 2.5 12Z"></path>
-                                            <circle cx="12" cy="12" r="3" stroke-width="1.8"></circle>
-                                        </svg>
-                                        <svg data-eye-closed class="hidden h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="m3 3 18 18M10.6 5.6A10.7 10.7 0 0 1 12 5.5c6.1 0 9.5 6.5 9.5 6.5s-1 1.9-2.8 3.6M6.2 6.2C3.8 7.8 2.5 12 2.5 12s3.4 6.5 9.5 6.5c1.3 0 2.5-.3 3.5-.8"></path>
-                                        </svg>
-                                    </button>
-                                    <button id="showTotalBalanceButton" type="button" class="rounded-full border border-gray-200 bg-white/80 px-3 py-2 text-xs font-semibold text-gray-700 shadow-sm transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-primary/40" aria-label="Flip back to total balance">
-                                        ← Total
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="my-auto grid grid-cols-1 gap-3 py-4 sm:grid-cols-2">
-                                <div class="rounded-2xl border border-white bg-white/75 p-4 shadow-sm backdrop-blur-xl">
-                                    <div class="mb-3 flex items-center justify-between">
-                                        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-50 text-lg text-primary" aria-hidden="true">↗</span>
-                                        <span class="rounded-full bg-rose-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-primary">Everyday</span>
-                                    </div>
-                                    <p class="text-xs font-medium text-gray-500">Checking</p>
-                                    <p class="mt-1 break-words text-xl font-bold tracking-tight text-gray-900" id="currentBalance">
-                                        <span class="skeleton-loader-light" style="width: 100px; height: 20px;"></span>
-                                    </p>
-                                </div>
-                                <div class="rounded-2xl border border-white bg-white/75 p-4 shadow-sm backdrop-blur-xl">
-                                    <div class="mb-3 flex items-center justify-between">
-                                        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-50 text-lg text-indigo-600" aria-hidden="true">✦</span>
-                                        <span class="rounded-full bg-indigo-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-indigo-700">Save</span>
-                                    </div>
-                                    <p class="text-xs font-medium text-gray-500">Savings</p>
-                                    <p class="mt-1 break-words text-xl font-bold tracking-tight text-gray-900" id="savingsBalance">
-                                        <span class="skeleton-loader-light" style="width: 100px; height: 20px;"></span>
-                                    </p>
-                                </div>
-                            </div>
-                            <p class="text-center text-[11px] text-gray-500">Tap the eye to hide or show balances</p>
-                        </div>
-                    </section>
+                    </div>
                 </div>
             </div>
 
-            <div class="dashboard-card atm-card relative overflow-hidden rounded-2xl p-5 text-white shadow-xl sm:p-6">
-                <div class="pointer-events-none absolute -right-12 -top-20 h-56 w-56 rounded-full border border-white/10"></div>
-                <div class="pointer-events-none absolute -right-4 -top-12 h-40 w-40 rounded-full border border-white/10"></div>
-                <div class="relative z-10 flex h-full flex-col justify-between">
-                    <div class="flex items-start justify-between gap-3">
-                        <div class="min-w-0">
-                            <p class="text-[10px] font-semibold uppercase tracking-[0.24em] text-blue-100/75">Capitai Bridge</p>
-                            <div class="mt-2 flex items-center gap-2">
-                                <span id="cardStatusDot" class="h-2 w-2 shrink-0 rounded-full bg-gray-400"></span>
-                                <p class="truncate text-xs font-medium text-gray-400" id="cardStatus" aria-live="polite">
-                                    <span class="skeleton-loader" style="width: 80px; height: 16px;"></span>
-                                </p>
-                            </div>
+            <div class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-6 text-white shadow-2xl overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/10"></div>
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <p class="text-gray-300 text-xs mb-1 font-medium">ATM CARD</p>
+                            <p class="text-xs text-gray-400" id="cardStatus">
+                                <span class="skeleton-loader" style="width: 80px; height: 16px;"></span>
+                            </p>
                         </div>
-                        <div class="flex shrink-0 items-center gap-3">
-                            <svg class="h-6 w-6 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Contactless card">
-                                <path stroke-linecap="round" stroke-width="1.8" d="M8 9a5 5 0 0 1 0 6M11 6a9 9 0 0 1 0 12M14 3a13 13 0 0 1 0 18"></path>
-                            </svg>
-                            <span class="rounded-md border border-white/15 bg-white/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/80 backdrop-blur">Debit</span>
-                        </div>
+                        <svg class="w-10 h-10 text-yellow-400/80" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 6v6h16v-6H4z"/>
+                        </svg>
                     </div>
-
-                    <div class="flex items-center gap-4">
-                        <div class="atm-chip relative h-10 w-14 shrink-0 overflow-hidden rounded-md border border-amber-100/50">
-                            <span class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-amber-900/35"></span>
-                            <span class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-amber-900/35"></span>
-                            <span class="absolute left-1/4 top-0 h-full w-px bg-amber-900/25"></span>
-                            <span class="absolute right-1/4 top-0 h-full w-px bg-amber-900/25"></span>
-                            <span class="absolute left-0 top-1/4 h-px w-full bg-amber-900/25"></span>
-                            <span class="absolute bottom-1/4 left-0 h-px w-full bg-amber-900/25"></span>
-                            <span class="absolute inset-2 rounded-sm border border-amber-900/30"></span>
-                        </div>
-                    </div>
-
-                    <div class="min-w-0">
-                        <p class="mb-3 break-all font-mono text-[clamp(0.8rem,2vw,1.1rem)] tracking-[0.12em] text-white drop-shadow-sm" id="cardNumber">
+                    <div class="mt-6">
+                        <p class="text-xl font-mono tracking-wider mb-4" id="cardNumber">
                             <span class="skeleton-loader" style="width: 220px; height: 24px;"></span>
                         </p>
-                        <div class="flex min-w-0 items-end justify-between gap-2 border-t border-white/15 pt-3 sm:gap-4">
-                            <div class="min-w-0 flex-1">
-                                <p class="mb-1 text-[9px] font-medium uppercase tracking-[0.17em] text-blue-100/60">Card holder</p>
-                                <p class="truncate text-xs font-semibold uppercase tracking-wide text-white sm:text-sm" id="cardHolder">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <p class="text-xs text-gray-400 mb-1">CARD HOLDER</p>
+                                <p class="text-sm font-medium" id="cardHolder">
                                     <span class="skeleton-loader" style="width: 120px; height: 18px;"></span>
                                 </p>
                             </div>
-                            <div class="shrink-0">
-                                <p class="mb-1 text-[9px] font-medium uppercase tracking-[0.17em] text-blue-100/60">Expires</p>
-                                <p class="text-xs font-semibold text-white sm:text-sm" id="cardExpiry">
+                            <div>
+                                <p class="text-xs text-gray-400 mb-1">EXPIRES</p>
+                                <p class="text-sm font-medium" id="cardExpiry">
                                     <span class="skeleton-loader" style="width: 50px; height: 18px;"></span>
                                 </p>
                             </div>
-                            <div class="shrink-0">
-                                <p class="mb-1 text-[9px] font-medium uppercase tracking-[0.17em] text-blue-100/60">CVV</p>
-                                <div class="flex items-center gap-1">
-                                    <p class="text-xs font-semibold font-mono text-white sm:text-sm" id="cardCVV">•••</p>
-                                    <button id="toggleCVV" type="button" class="rounded p-1 text-white/60 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/70" aria-label="Show card security code" title="Show card security code">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <div>
+                                <p class="text-xs text-gray-400 mb-1">CVV</p>
+                                <div class="flex items-center space-x-2">
+                                    <p class="text-sm font-medium font-mono" id="cardCVV">•••</p>
+                                    <button id="toggleCVV" class="text-gray-400 hover:text-white transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                         </svg>
@@ -409,69 +227,29 @@
                 </div>
             </div>
 
-            <div class="dashboard-card rounded-2xl border border-white/80 bg-white/70 p-6 shadow-sm backdrop-blur-2xl">
+            <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
                 <h3 class="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
-                <div class="grid grid-cols-2 gap-3">
-                    <a href="deposit.html" class="flex min-h-20 flex-col items-center justify-center gap-2 rounded-xl bg-green-50 px-3 py-3 text-center text-sm font-semibold text-green-800 transition-colors hover:bg-green-100">
-                        <span class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-lg text-green-700" aria-hidden="true">+</span>
-                        Deposit funds
+                <div class="space-y-3">
+                    <a href="deposit.html" class="block w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium text-sm text-center">
+                        Deposit Funds
                     </a>
-                    <a href="wire-transfer.html" class="flex min-h-20 flex-col items-center justify-center gap-2 rounded-xl bg-red-50 px-3 py-3 text-center text-sm font-semibold text-primary transition-colors hover:bg-red-100">
-                        <span class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-lg" aria-hidden="true">↗</span>
-                        Wire transfer
+                    <a href="wire-transfer.html" class="block w-full bg-primary text-white py-3 rounded-lg hover:bg-green-900 transition-colors font-medium text-sm text-center">
+                        Wire Transfer
                     </a>
-                    <a href="local-transfer.html" class="flex min-h-20 flex-col items-center justify-center gap-2 rounded-xl bg-gray-50 px-3 py-3 text-center text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100">
-                        <span class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-lg text-gray-600" aria-hidden="true">⇄</span>
-                        Local transfer
+                    <a href="local-transfer.html" class="block w-full bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium text-sm text-center">
+                        Local Transfer
                     </a>
-                    <a href="self-transfer.html" class="flex min-h-20 flex-col items-center justify-center gap-2 rounded-xl bg-gray-50 px-3 py-3 text-center text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100">
-                        <span class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-lg text-gray-600" aria-hidden="true">↻</span>
-                        Self transfer
+                    <a href="self-transfer.html" class="block w-full bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium text-sm text-center">
+                        Self Transfer
                     </a>
-                    <a href="transactions-history.html" class="col-span-2 flex items-center justify-center gap-2 rounded-xl bg-gray-50 px-3 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100">
-                        <span class="text-base text-gray-500" aria-hidden="true">≡</span>
-                        View statements
+                    <a href="transactions-history.html" class="block w-full bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium text-sm text-center">
+                        View Statements
                     </a>
                 </div>
             </div>
         </div>
 
-        <section class="mb-8" aria-labelledby="cashFlowHeading">
-            <div class="mb-4 flex flex-wrap items-end justify-between gap-2">
-                <div>
-                    <p class="text-sm font-semibold uppercase tracking-wider text-primary mb-1">Money movement</p>
-                    <h3 id="cashFlowHeading" class="text-xl font-bold text-gray-900">Cash flow</h3>
-                </div>
-                <p class="text-sm text-gray-500">Last 6 months · based on your transactions</p>
-            </div>
-            <div class="grid gap-6 lg:grid-cols-2">
-                <article class="dashboard-card rounded-2xl border border-white/80 bg-white/70 p-6 shadow-sm backdrop-blur-2xl">
-                    <div class="flex items-start justify-between gap-3">
-                        <div>
-                            <p class="text-sm font-medium text-gray-600">Money in</p>
-                            <p id="cashFlowIncomeTotal" class="mt-2 text-2xl font-bold text-gray-900">—</p>
-                        </div>
-                        <span class="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">Credits</span>
-                    </div>
-                    <div id="cashFlowIncomeChart" class="mt-6 grid h-32 grid-cols-6 items-end gap-3" role="img" aria-label="Monthly incoming transactions for the last six months"></div>
-                    <div id="cashFlowMonthLabels" class="mt-3 grid grid-cols-6 gap-3 text-center text-xs text-gray-500"></div>
-                </article>
-                <article class="dashboard-card rounded-2xl border border-white/80 bg-white/70 p-6 shadow-sm backdrop-blur-2xl">
-                    <div class="flex items-start justify-between gap-3">
-                        <div>
-                            <p class="text-sm font-medium text-gray-600">Money out</p>
-                            <p id="cashFlowSpentTotal" class="mt-2 text-2xl font-bold text-gray-900">—</p>
-                        </div>
-                        <span class="rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-primary">Debits</span>
-                    </div>
-                    <div id="cashFlowSpentChart" class="mt-6 grid h-32 grid-cols-6 items-end gap-3" role="img" aria-label="Monthly outgoing transactions for the last six months"></div>
-                    <div id="cashFlowMonthLabelsSpent" class="mt-3 grid grid-cols-6 gap-3 text-center text-xs text-gray-500"></div>
-                </article>
-            </div>
-            <p id="cashFlowEmptyState" class="mt-3 hidden text-sm text-gray-500">No transaction data is available for this period yet.</p>
-        </section>
-
-        <div class="dashboard-card rounded-2xl border border-white/80 bg-white/70 p-6 shadow-sm backdrop-blur-2xl">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
             <h3 class="text-xl font-bold text-gray-900 mb-6">Recent Transactions</h3>
             
             <div class="flex space-x-1 mb-6 border-b border-gray-200">
@@ -518,11 +296,11 @@
 
         <div class="flex justify-center flex-wrap gap-3">
           <button id="statusSupportBtn"
-                  class="hidden px-4 py-2 rounded-lg bg-secondary text-white text-sm font-medium hover:bg-red-700 transition-colors">
+                  class="hidden px-4 py-2 rounded-lg bg-secondary text-white text-sm font-medium hover:bg-green-800 transition-colors">
             Contact Support
           </button>
           <button id="statusContinueBtn"
-                  class="hidden px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-red-900 transition-colors">
+                  class="hidden px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-green-900 transition-colors">
             OK, Continue
           </button>
           <button id="statusLogoutBtn"
@@ -556,21 +334,6 @@
         let isBalanceVisible = true;
         let currencySign = '$';
 
-        function updateDashboardClock() {
-            const now = new Date();
-            document.getElementById('dashboardClock').textContent = new Intl.DateTimeFormat(undefined, {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            }).format(now);
-            document.getElementById('dashboardDate').textContent = new Intl.DateTimeFormat(undefined, {
-                weekday: 'long',
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric'
-            }).format(now);
-        }
-
         function formatNumber(number) {
             const num = parseFloat(number);
             if (isNaN(num)) return '0.00';
@@ -584,16 +347,6 @@
             return Number.isFinite(n) ? n : 0;
         }
 
-        function parseTransactionDate(raw) {
-            if (!raw) return null;
-            const value = String(raw).trim();
-            const normalized = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(?:\.\d+)?$/.test(value)
-                ? value.replace(' ', 'T')
-                : value;
-            const date = new Date(normalized);
-            return Number.isFinite(date.getTime()) ? date : null;
-        }
-
         // Direction logic:
         // - wire/local: use entry_type enum('credit','debit')
         // - self: internal transfer (you -> you)
@@ -605,64 +358,6 @@
             // fallback if backend didn't send entry_type
             const amt = parseAmount(tx.amount);
             return amt < 0 ? 'debit' : 'credit';
-        }
-
-        function renderCashFlowChart() {
-            const now = new Date();
-            const months = Array.from({ length: 6 }, (_, index) => {
-                const month = new Date(now.getFullYear(), now.getMonth() - 5 + index, 1);
-                return {
-                    key: `${month.getFullYear()}-${month.getMonth()}`,
-                    label: new Intl.DateTimeFormat(undefined, { month: 'short' }).format(month),
-                    income: 0,
-                    spent: 0
-                };
-            });
-            const monthIndexes = new Map(months.map((month, index) => [month.key, index]));
-            const transactions = [
-                ...allWireTransactions.map(tx => ({ ...tx, type: 'wire', date: tx.date || tx.created_at })),
-                ...allLocalTransactions.map(tx => ({ ...tx, type: 'local', date: tx.date || tx.created_at })),
-                ...allSelfTransactions.map(tx => ({ ...tx, type: 'self', date: tx.created_at }))
-            ];
-            let hasData = false;
-
-            transactions.forEach(transaction => {
-                const date = parseTransactionDate(transaction.date);
-                if (!date) return;
-                const monthIndex = monthIndexes.get(`${date.getFullYear()}-${date.getMonth()}`);
-                if (monthIndex === undefined) return;
-
-                const direction = getTxDirection(transaction);
-                if (direction === 'internal') return;
-
-                const amount = Math.abs(parseAmount(transaction.amount));
-                if (direction === 'credit') months[monthIndex].income += amount;
-                if (direction === 'debit') months[monthIndex].spent += amount;
-                hasData = true;
-            });
-
-            const renderBars = (chartId, labelsId, key, colorClass) => {
-                const chart = document.getElementById(chartId);
-                const labels = document.getElementById(labelsId);
-                const maxValue = Math.max(...months.map(month => month[key]), 0);
-
-                chart.innerHTML = months.map(month => {
-                    const value = month[key];
-                    const height = maxValue > 0 ? Math.max((value / maxValue) * 100, 4) : 4;
-                    return `<div class="flex h-full items-end justify-center">
-                        <div class="cash-flow-bar ${colorClass} w-full max-w-12" style="height:${height}%" title="${month.label}: ${currencySign}${formatNumber(value)}"></div>
-                    </div>`;
-                }).join('');
-                labels.innerHTML = months.map(month => `<span>${month.label}</span>`).join('');
-            };
-
-            renderBars('cashFlowIncomeChart', 'cashFlowMonthLabels', 'income', 'bg-gradient-to-t from-green-600 to-emerald-400');
-            renderBars('cashFlowSpentChart', 'cashFlowMonthLabelsSpent', 'spent', 'bg-gradient-to-t from-primary to-red-400');
-            document.getElementById('cashFlowIncomeTotal').textContent =
-                `${currencySign}${formatNumber(months.reduce((sum, month) => sum + month.income, 0))}`;
-            document.getElementById('cashFlowSpentTotal').textContent =
-                `${currencySign}${formatNumber(months.reduce((sum, month) => sum + month.spent, 0))}`;
-            document.getElementById('cashFlowEmptyState').classList.toggle('hidden', hasData);
         }
 
         function getDirectionUI(direction) {
@@ -857,14 +552,13 @@
                 const currentBalanceEl = document.getElementById('currentBalance');
                 const savingsBalanceEl = document.getElementById('savingsBalance');
                 
-                totalBalanceEl.textContent = `${currencySign}${formatNumber(actualTotalBalance)}`;
-                currentBalanceEl.textContent = `${currencySign}${formatNumber(actualCurrentBalance)}`;
-                savingsBalanceEl.textContent = `${currencySign}${formatNumber(actualSavingsBalance)}`;
+                totalBalanceEl.innerHTML = `${currencySign}${formatNumber(actualTotalBalance)}`;
+                currentBalanceEl.innerHTML = `${currencySign}${formatNumber(actualCurrentBalance)}`;
+                savingsBalanceEl.innerHTML = `${currencySign}${formatNumber(actualSavingsBalance)}`;
                 
                 totalBalanceEl.classList.add('fade-in');
                 currentBalanceEl.classList.add('fade-in');
                 savingsBalanceEl.classList.add('fade-in');
-                updateBalanceVisibility();
             } catch (error) {
                 console.error('Failed to load balances:', error);
                 document.getElementById('totalBalance').innerHTML = 'Error';
@@ -883,96 +577,50 @@
                     const cardNumberEl = document.getElementById('cardNumber');
                     const cardHolderEl = document.getElementById('cardHolder');
                     const cardExpiryEl = document.getElementById('cardExpiry');
-                    const cardIsApproved = String(card.status || '').trim().toLowerCase() === 'approved';
+                    const cardStatusEl = document.getElementById('cardStatus');
                     
                     cardNumberEl.textContent = card.card_number || '•••• •••• •••• ••••';
                     cardHolderEl.textContent = card.card_holder_name || 'Card Holder Name';
                     cardExpiryEl.textContent = card.expiry_date || 'MM/YY';
-                    setCardStatus(cardIsApproved, cardIsApproved ? 'Active' : 'Not approved');
+                    cardStatusEl.textContent = card.status || 'Active';
                     cardCVVValue = card.cvv || '•••';
                     document.getElementById('cardCVV').textContent = '•••';
                     
                     cardNumberEl.classList.add('fade-in');
                     cardHolderEl.classList.add('fade-in');
                     cardExpiryEl.classList.add('fade-in');
-                    document.getElementById('cardStatus').classList.add('fade-in');
+                    cardStatusEl.classList.add('fade-in');
                 } else {
-                    setCardStatus(false, 'No card available');
+                    document.getElementById('cardStatus').textContent = 'No card available';
                     document.getElementById('cardNumber').textContent = '•••• •••• •••• ••••';
                     document.getElementById('cardHolder').textContent = 'No Card';
                     document.getElementById('cardExpiry').textContent = 'MM/YY';
                 }
             } catch (error) {
                 console.error('Failed to load ATM card:', error);
-                setCardStatus(false, 'Error loading card');
+                document.getElementById('cardStatus').textContent = 'Error loading card';
                 document.getElementById('cardNumber').textContent = '•••• •••• •••• ••••';
                 document.getElementById('cardHolder').textContent = 'Error';
                 document.getElementById('cardExpiry').textContent = 'MM/YY';
             }
         }
 
-        function setCardStatus(isApproved, label) {
-            const status = document.getElementById('cardStatus');
-            const dot = document.getElementById('cardStatusDot');
-            status.textContent = label;
-            status.classList.toggle('text-emerald-300', isApproved);
-            status.classList.toggle('text-gray-400', !isApproved);
-            dot.classList.toggle('bg-emerald-400', isApproved);
-            dot.classList.toggle('shadow-[0_0_10px_rgba(52,211,153,0.8)]', isApproved);
-            dot.classList.toggle('bg-gray-400', !isApproved);
-        }
-
-        function updateBalanceVisibility() {
-            const balanceText = isBalanceVisible ? null : '••••••';
-
-            document.getElementById('totalBalance').textContent =
-                balanceText || `${currencySign}${formatNumber(actualTotalBalance)}`;
-            document.getElementById('currentBalance').textContent =
-                balanceText || `${currencySign}${formatNumber(actualCurrentBalance)}`;
-            document.getElementById('savingsBalance').textContent =
-                balanceText || `${currencySign}${formatNumber(actualSavingsBalance)}`;
-            document.querySelectorAll('[data-balance-toggle]').forEach(button => {
-                button.setAttribute('aria-pressed', String(!isBalanceVisible));
-                button.setAttribute('aria-label', isBalanceVisible ? 'Hide balances' : 'Show balances');
-                button.title = isBalanceVisible ? 'Hide balances' : 'Show balances';
-                button.querySelector('[data-eye-open]').classList.toggle('hidden', !isBalanceVisible);
-                button.querySelector('[data-eye-closed]').classList.toggle('hidden', isBalanceVisible);
-            });
-        }
-
-        function toggleBalanceVisibility() {
+        document.getElementById('totalBalanceCard').addEventListener('click', () => {
             isBalanceVisible = !isBalanceVisible;
-            updateBalanceVisibility();
-        }
-
-        function setBalanceCardFlipped(isFlipped) {
-            const card = document.getElementById('totalBalanceCard');
-            const front = card.querySelector('.balance-face:not(.balance-face-back)');
-            const back = card.querySelector('.balance-face-back');
-            card.classList.toggle('is-flipped', isFlipped);
-            front.setAttribute('aria-hidden', String(isFlipped));
-            back.setAttribute('aria-hidden', String(!isFlipped));
-            front.inert = isFlipped;
-            back.inert = !isFlipped;
-            document.getElementById(isFlipped ? 'toggleBalanceVisibilityBack' : 'showAccountsButton').focus();
-        }
-
-        document.querySelectorAll('[data-balance-toggle]').forEach(button => {
-            button.addEventListener('click', toggleBalanceVisibility);
-        });
-        document.getElementById('showAccountsButton').addEventListener('click', () => {
-            setBalanceCardFlipped(true);
-        });
-        document.getElementById('showTotalBalanceButton').addEventListener('click', () => {
-            setBalanceCardFlipped(false);
+            if (isBalanceVisible) {
+                document.getElementById('totalBalance').innerHTML = `${currencySign}${formatNumber(actualTotalBalance)}`;
+                document.getElementById('currentBalance').innerHTML = `${currencySign}${formatNumber(actualCurrentBalance)}`;
+                document.getElementById('savingsBalance').innerHTML = `${currencySign}${formatNumber(actualSavingsBalance)}`;
+            } else {
+                document.getElementById('totalBalance').innerHTML = '••••••';
+                document.getElementById('currentBalance').innerHTML = '••••••';
+                document.getElementById('savingsBalance').innerHTML = '••••••';
+            }
         });
 
         document.getElementById('toggleCVV').addEventListener('click', () => {
             isCVVVisible = !isCVVVisible;
             document.getElementById('cardCVV').textContent = isCVVVisible ? cardCVVValue : '•••';
-            const toggleCVVButton = document.getElementById('toggleCVV');
-            toggleCVVButton.setAttribute('aria-label', isCVVVisible ? 'Hide card security code' : 'Show card security code');
-            toggleCVVButton.title = isCVVVisible ? 'Hide card security code' : 'Show card security code';
         });
 
         async function loadTransactions() {
@@ -987,7 +635,6 @@
                 allLocalTransactions = localRes.data.history || [];
                 allSelfTransactions = selfRes.data.history || [];
 
-                renderCashFlowChart();
                 renderTransactions(currentTab);
             } catch (error) {
                 console.error('Failed to load transactions:', error);
@@ -1098,9 +745,6 @@
 
         document.getElementById('logoutButton').addEventListener('click', doLogout);
 
-        updateDashboardClock();
-        setInterval(updateDashboardClock, 1000);
-
         document.getElementById('userMenuButton').addEventListener('click', () => {
             const dropdown = document.getElementById('userDropdown');
             dropdown.classList.toggle('hidden');
@@ -1128,5 +772,7 @@
             loadTransactions();
         })();
     </script>
+<script src="../js/live-chat.js"></script>
+<noscript>Powered by <a href="https://www.smartsupp.com" target="_blank" rel="noopener">Smartsupp</a></noscript>
 </body>
 </html>
