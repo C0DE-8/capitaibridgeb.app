@@ -1765,6 +1765,27 @@ table tr td, th{
 	color: #fff;
 }
 
+.navbar-nav .nav-item.nav-signup-item > a,
+.navbar-nav .nav-item.nav-signup-item:hover > a {
+	background: var(--main-color-two);
+	color: #fff;
+	padding: 15px 20px;
+	border-radius: 50px;
+}
+
+.navbar-nav .nav-item.nav-signup-item > a:hover {
+	background: var(--main-color-one);
+	color: #fff;
+}
+
+@media (max-width: 991px) {
+	.navbar-nav .nav-item.nav-signup-item > a,
+	.navbar-nav .nav-item.nav-signup-item:hover > a {
+		display: inline-block;
+		padding: 10px 16px !important;
+	}
+}
+
 /* -------------------------------------
 		Hero Section
 ------------------------------------- */
