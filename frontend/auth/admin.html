@@ -148,7 +148,8 @@
             try {
                 const response = await axios.post(`${API_BASE_URL}/login`, {
                     identifier: adminEmail,
-                    password: document.getElementById('password').value
+                    password: document.getElementById('password').value,
+                    portal: 'admin'
                 });
 
                 if (response.data.otp_required) {
@@ -176,7 +177,8 @@
             try {
                 const response = await axios.post(`${API_BASE_URL}/login/verify-otp`, {
                     email: adminEmail,
-                    otp: document.getElementById('otp').value.trim()
+                    otp: document.getElementById('otp').value.trim(),
+                    portal: 'admin'
                 });
                 completeAdminSignIn(response.data);
             } catch (error) {

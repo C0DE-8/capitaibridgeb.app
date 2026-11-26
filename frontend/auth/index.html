@@ -142,6 +142,10 @@
                         Don't have an account? 
                         <a href="register.html" class="text-primary hover:text-red-900 font-medium">Sign up</a>
                     </p>
+                    <p class="mt-3 text-sm text-gray-600">
+                        Administrator?
+                        <a href="admin.html" class="text-primary hover:text-red-900 font-medium">Sign in here</a>
+                    </p>
                 </div>
             </div>
 
@@ -188,7 +192,8 @@
             try {
                 const response = await axios.post(`${API_BASE_URL}/login`, {
                     identifier,
-                    password
+                    password,
+                    portal: 'user'
                 });
                 
                 if (response.data.otp_required) {
@@ -199,18 +204,7 @@
                     document.getElementById('loginForm').classList.add('hidden');
                     document.getElementById('otpForm').classList.remove('hidden');
                 } else {
-                    localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('user', JSON.stringify(response.data.user));
-                    showAlert('Login successful! Redirecting...', 'success');
-                    
-                    const user = response.data.user;
-                    setTimeout(() => {
-                        if (user.role === 'admin' || user.is_admin) {
-                            window.location.href = '../admin/admin-dashboard.html';
-                        } else {
-                            window.location.href = '../pages/dashboard.html';
-                        }
-                    }, 1500);
+                    completeCustomerSignIn(response.data);
                 }
             } catch (error) {
                 showAlert(error.response?.data?.error || 'Login failed. Please check your credentials and try again.');
@@ -237,21 +231,11 @@
             try {
                 const response = await axios.post(`${API_BASE_URL}/login/verify-otp`, {
                     email: userData.email,
-                    otp
+                    otp,
+                    portal: 'user'
                 });
                 
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('user', JSON.stringify(response.data.user));
-                showAlert('Login successful! Redirecting...', 'success');
-                
-                const user = response.data.user;
-                setTimeout(() => {
-                    if (user.role === 'admin' || user.is_admin) {
-                        window.location.href = '../admin/admin-dashboard.html';
-                    } else {
-                        window.location.href = '../pages/dashboard.html';
-                    }
-                }, 1500);
+                completeCustomerSignIn(response.data);
             } catch (error) {
                 const errorMsg = error.response?.data?.error || 'Invalid or expired OTP. Please try again.';
                 showAlert(errorMsg);
@@ -270,6 +254,24 @@
                 otpButtonText.textContent = 'Verify & Sign In';
             }
         });
+
+        function completeCustomerSignIn(data) {
+            if (!data?.token || !data.user) {
+                showAlert('Sign in could not be completed. Please try again.');
+                return;
+            }
+            if (Number(data.user.is_admin) === 1 || data.user.role === 'admin') {
+                showAlert('This is an administrator account. Please use administrator sign in.');
+                return;
+            }
+
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            showAlert('Login successful! Redirecting...', 'success');
+            setTimeout(() => {
+                window.location.href = '../pages/dashboard.html';
+            }, 1500);
+        }
     </script>
 </body>
 </html>

@@ -33,6 +33,10 @@ function generateSavingsAccountNumber() {
   return '81' + Math.floor(100000000 + Math.random() * 900000000); // e.g. 81XXXXXXXXX
 }
 
+function isAdminAccount(user) {
+  return Number(user?.is_admin) === 1;
+}
+
 const onboardingStorage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'uploads/'),
   filename: (req, file, cb) => {
@@ -276,10 +280,13 @@ router.post('/resend-otp', (req, res) => {
 
 // User Login auth/login
 router.post('/login', async (req, res) => {
-  const { identifier, password } = req.body;
+  const { identifier, password, portal = 'user' } = req.body;
 
   if (!identifier || !password) {
     return res.status(400).json({ error: 'Email/Account Number and password are required' });
+  }
+  if (!['user', 'admin'].includes(portal)) {
+    return res.status(400).json({ error: 'Invalid sign-in portal' });
   }
 
   db.query(
@@ -313,6 +320,15 @@ router.post('/login', async (req, res) => {
       if (!passwordMatch) {
         logActivity(user.id, 'login_failed', 'Incorrect password');
         return res.status(401).json({ error: 'Invalid credentials' });
+      }
+
+      if ((portal === 'admin') !== isAdminAccount(user)) {
+        logActivity(user.id, 'login_failed', `Used the ${portal} sign-in page for the wrong account type`);
+        return res.status(403).json({
+          error: isAdminAccount(user)
+            ? 'Please sign in using the administrator sign-in page'
+            : 'This account does not have administrator access'
+        });
       }
 
       try {
@@ -378,9 +394,12 @@ router.post('/login', async (req, res) => {
 
 // ✅ Verify Login OTP
 router.post('/login/verify-otp', (req, res) => {
-  const { email, otp } = req.body;
+  const { email, otp, portal = 'user' } = req.body;
 
   if (!email || !otp) return res.status(400).json({ error: 'Email and OTP required' });
+  if (!['user', 'admin'].includes(portal)) {
+    return res.status(400).json({ error: 'Invalid sign-in portal' });
+  }
 
   db.query('SELECT * FROM users WHERE email = ?', [email], (err, users) => {
     if (err) {
@@ -390,6 +409,15 @@ router.post('/login/verify-otp', (req, res) => {
     if (users.length === 0) return res.status(404).json({ error: 'User not found' });
 
     const user = users[0];
+
+    if ((portal === 'admin') !== isAdminAccount(user)) {
+      logActivity(user.id, 'otp_failed', `Used the ${portal} sign-in page for the wrong account type`);
+      return res.status(403).json({
+        error: isAdminAccount(user)
+          ? 'Please sign in using the administrator sign-in page'
+          : 'This account does not have administrator access'
+      });
+    }
 
     db.query(
       'SELECT * FROM login_otps WHERE user_id = ? AND otp_code = ? AND otp_expires_at > NOW()',
