@@ -408,8 +408,7 @@
             margin-top: 17px;
         }
 
-        .home-rates-status,
-        .home-rates-disclaimer {
+        .home-rates-status {
             margin: 0;
             color: rgba(255, 255, 255, .57);
             font: 400 11px/1.55 'Roboto', sans-serif;
@@ -417,17 +416,6 @@
 
         .home-rates-status {
             min-height: 18px;
-        }
-
-        .home-rates-disclaimer {
-            max-width: 590px;
-            text-align: right;
-        }
-
-        .home-rates-disclaimer a {
-            color: #ffb6ba;
-            text-decoration: underline;
-            text-underline-offset: 2px;
         }
 
         .home-rates-retry {
@@ -923,11 +911,6 @@
                 display: block;
             }
 
-            .home-rates-disclaimer {
-                margin-top: 8px;
-                text-align: left;
-            }
-
             .home-announcement {
                 min-height: 64px;
                 display: grid;
@@ -1185,7 +1168,7 @@
                         <div class="home-rates-input-wrap">
                             <span aria-hidden="true">$</span>
                             <input id="home-rates-amount" type="number" min="0" step="any" value="100"
-                                inputmode="decimal" aria-describedby="home-rates-disclaimer">
+                                inputmode="decimal">
                         </div>
                     </div>
                 </div>
@@ -1244,10 +1227,6 @@
                         Loading the latest available reference rates…
                     </p>
                     <button class="home-rates-retry" id="home-rates-retry" type="button" hidden>Try again</button>
-                    <p class="home-rates-disclaimer" id="home-rates-disclaimer">
-                        For information only, not a transaction quote. Source: <a href="https://www.frankfurter.dev/"
-                            target="_blank" rel="noopener noreferrer">Frankfurter API</a> (ECB reference data).
-                    </p>
                 </div>
             </div>
         </section>
@@ -1944,12 +1923,14 @@ contact@capitaibridgeb.app
         const backdrop = document.querySelector('.home-nav-backdrop');
         if (!toggle || !panel || !closeButton || !backdrop) return;
 
-        panel.inert = true;
+        const mobileMenu = window.matchMedia('(max-width: 991px)');
+        panel.inert = mobileMenu.matches;
+        panel.setAttribute('aria-hidden', String(mobileMenu.matches));
 
-        function closeMenu(restoreFocus = false) {
+        function closeMenu(restoreFocus = false, inertPanel = true) {
             panel.classList.remove('is-open');
             panel.setAttribute('aria-hidden', 'true');
-            panel.inert = true;
+            panel.inert = inertPanel;
             backdrop.setAttribute('aria-hidden', 'true');
             backdrop.style.removeProperty('opacity');
             backdrop.style.removeProperty('visibility');
@@ -1995,7 +1976,13 @@ contact@capitaibridgeb.app
         });
 
         window.matchMedia('(min-width: 992px)').addEventListener('change', (event) => {
-            if (event.matches) closeMenu();
+            if (event.matches) {
+                closeMenu(false, false);
+                panel.setAttribute('aria-hidden', 'false');
+            } else {
+                closeMenu(false, true);
+                panel.setAttribute('aria-hidden', 'true');
+            }
         });
     })();
 </script>

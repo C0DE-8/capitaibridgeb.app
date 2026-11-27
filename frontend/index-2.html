@@ -147,7 +147,7 @@
         #home-navigation .home-nav-contact {
             margin-left: 12px;
             padding: 13px 20px;
-            color: #fff;
+            color: #fff !important;
             background: var(--home-red);
         }
 
@@ -161,6 +161,27 @@
             padding: 12px;
             border: 0;
             color: var(--home-ink);
+        }
+
+        #home-navigation .home-menu-toggle .toggler-icon {
+            width: 30px;
+            height: 2px;
+            display: block;
+            margin: 5px 0;
+            background-color: #111;
+            transition: background-color .2s ease;
+        }
+
+        #home-navigation .home-menu-toggle:hover .toggler-icon,
+        #home-navigation .home-menu-toggle:focus-visible .toggler-icon {
+            background-color: #111;
+        }
+
+        .home-nav-backdrop,
+        .home-nav-panel-header,
+        .home-nav-contact-details,
+        .home-nav-arrow {
+            display: none;
         }
 
         .homepage-hero-shell {
@@ -199,6 +220,217 @@
 
         .home-announcement a span {
             color: inherit;
+        }
+
+        .home-rates-section {
+            position: relative;
+            margin-top: 60px;
+            overflow: hidden;
+            color: #fff;
+            background: linear-gradient(115deg, #1d2028, #29232b 58%, #1b1d24);
+            isolation: isolate;
+        }
+
+        .home-rates-section::before {
+            position: absolute;
+            inset: 0 0 0 auto;
+            z-index: -1;
+            width: min(38%, 460px);
+            background: url('images/homepage/slider-shape.png') right center / auto 100% no-repeat;
+            content: "";
+            opacity: .13;
+        }
+
+        .home-rates-inner {
+            width: min(100% - 48px, 1120px);
+            margin: 0 auto;
+            padding: 64px 0 58px;
+        }
+
+        .home-rates-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 30px;
+            margin-bottom: 28px;
+        }
+
+        .home-rates-eyebrow {
+            display: block;
+            margin-bottom: 10px;
+            color: #ff9a9f;
+            font: 700 11px/1.4 'Montserrat', sans-serif;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+        }
+
+        .home-rates-heading h2 {
+            margin: 0;
+            color: #fff;
+            font: 700 clamp(26px, 3vw, 38px)/1.15 'Montserrat', sans-serif;
+            letter-spacing: -.8px;
+        }
+
+        .home-rates-heading p {
+            max-width: 470px;
+            margin: 10px 0 0;
+            color: rgba(255, 255, 255, .7);
+            font: 400 14px/1.65 'Roboto', sans-serif;
+        }
+
+        .home-rates-calculator {
+            flex: 0 0 218px;
+        }
+
+        .home-rates-calculator label {
+            display: block;
+            margin-bottom: 7px;
+            color: rgba(255, 255, 255, .72);
+            font: 600 11px/1.4 'Montserrat', sans-serif;
+        }
+
+        .home-rates-input-wrap {
+            display: flex;
+            align-items: center;
+            min-height: 46px;
+            border: 1px solid rgba(255, 255, 255, .23);
+            background: rgba(255, 255, 255, .07);
+        }
+
+        .home-rates-input-wrap span {
+            padding-left: 13px;
+            color: #fff;
+            font: 600 14px/1 'Montserrat', sans-serif;
+        }
+
+        .home-rates-input-wrap input {
+            width: 100%;
+            min-width: 0;
+            height: 44px;
+            padding: 0 12px 0 8px;
+            border: 0;
+            outline: 0;
+            color: #fff;
+            background: transparent;
+            font: 600 15px/1 'Montserrat', sans-serif;
+        }
+
+        .home-rates-input-wrap input:focus-visible {
+            box-shadow: inset 0 0 0 2px #ff9a9f;
+        }
+
+        .home-rates-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 13px;
+        }
+
+        .home-rate-card {
+            min-width: 0;
+            padding: 19px 20px 17px;
+            border: 1px solid rgba(255, 255, 255, .14);
+            background: rgba(255, 255, 255, .045);
+            transition: border-color .2s ease, background .2s ease, transform .2s ease;
+        }
+
+        .home-rate-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, .32);
+            background: rgba(255, 255, 255, .075);
+        }
+
+        .home-rate-card-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .home-rate-symbol {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, .24);
+            border-radius: 50%;
+            color: #fff;
+            background: rgba(211, 58, 67, .23);
+            font: 700 16px/1 'Montserrat', sans-serif;
+        }
+
+        .home-rate-currency {
+            min-width: 0;
+        }
+
+        .home-rate-currency strong,
+        .home-rate-currency span {
+            display: block;
+        }
+
+        .home-rate-currency strong {
+            overflow: hidden;
+            color: #fff;
+            font: 700 14px/1.3 'Montserrat', sans-serif;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .home-rate-currency span {
+            margin-top: 3px;
+            color: rgba(255, 255, 255, .58);
+            font: 500 11px/1.3 'Montserrat', sans-serif;
+        }
+
+        .home-rate-equation {
+            margin: 20px 0 0;
+            color: #fff;
+            font: 600 17px/1.3 'Montserrat', sans-serif;
+            letter-spacing: -.2px;
+        }
+
+        .home-rate-equation span {
+            color: #ff9a9f;
+        }
+
+        .home-rate-estimate {
+            margin: 8px 0 0;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, .12);
+            color: rgba(255, 255, 255, .67);
+            font: 400 12px/1.45 'Roboto', sans-serif;
+        }
+
+        .home-rates-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: 17px;
+        }
+
+        .home-rates-status {
+            margin: 0;
+            color: rgba(255, 255, 255, .57);
+            font: 400 11px/1.55 'Roboto', sans-serif;
+        }
+
+        .home-rates-status {
+            min-height: 18px;
+        }
+
+        .home-rates-retry {
+            display: none;
+            margin-left: 8px;
+            padding: 0;
+            border: 0;
+            color: #ff9a9f;
+            background: transparent;
+            font: 700 11px/1.4 'Montserrat', sans-serif;
+            text-decoration: underline;
+        }
+
+        .home-rates-retry:not([hidden]) {
+            display: inline;
         }
 
         .home-slider {
@@ -434,24 +666,182 @@
                 padding: 0 18px;
             }
 
+            body.home-menu-open {
+                overflow: hidden;
+            }
+
+            body.home-menu-open #home-navigation {
+                z-index: 1100;
+            }
+
+            .home-nav-backdrop {
+                position: fixed;
+                inset: 0;
+                z-index: 1090;
+                display: block;
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                border: 0;
+                background: rgba(18, 19, 25, .68);
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity .25s ease, visibility .25s ease;
+            }
+
+            body.home-menu-open .home-nav-backdrop {
+                opacity: 1;
+                visibility: visible;
+            }
+
             .home-nav-links {
-                position: absolute;
-                top: 100%;
-                right: 0;
+                position: fixed;
+                top: 0;
+                bottom: 0;
                 left: 0;
-                padding: 8px 22px 18px;
-                background: var(--home-cream);
-                box-shadow: 0 15px 25px rgba(0, 0, 0, .08);
+                z-index: 1101;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                width: min(292px, calc(100vw - 58px));
+                height: 100vh;
+                height: 100dvh;
+                max-height: 100vh;
+                max-height: 100dvh;
+                overflow-y: auto;
+                padding: 0 18px 26px;
+                background: var(--home-red);
+                box-shadow: 14px 0 36px rgba(0, 0, 0, .2);
+                transform: translateX(-105%);
+                visibility: hidden;
+                transition: transform .3s ease, visibility .3s ease;
+            }
+
+            .home-nav-links.is-open {
+                transform: translateX(0);
+                visibility: visible;
+            }
+
+            .home-nav-panel-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                min-height: 110px;
+                margin-bottom: 18px;
+                border-bottom: 1px solid rgba(255, 255, 255, .16);
+            }
+
+            #home-navigation .home-nav-panel-header .home-brand {
+                min-width: 0;
+                min-height: 0;
+                gap: 9px;
+                padding: 0;
+                background: transparent;
+            }
+
+            #home-navigation .home-nav-panel-header .home-brand-mark {
+                width: 29px;
+            }
+
+            #home-navigation .home-nav-panel-header .home-brand-mark i {
+                height: 5px;
+            }
+
+            #home-navigation .home-nav-panel-header .home-brand-wordmark strong {
+                font-size: 15px;
+            }
+
+            #home-navigation .home-nav-panel-header .home-brand-wordmark small {
+                font-size: 7px;
+            }
+
+            .home-nav-close {
+                width: 40px;
+                height: 40px;
+                flex: 0 0 40px;
+                border: 0;
+                color: var(--home-red);
+                background: #fff;
+                font: 500 26px/1 'Montserrat', sans-serif;
+                cursor: pointer;
+            }
+
+            .home-nav-links .home-nav-list {
+                width: 100%;
+                align-items: stretch;
+            }
+
+            .home-nav-links .home-nav-list .nav-item {
+                border-bottom: 1px solid rgba(255, 255, 255, .14);
             }
 
             #home-navigation .home-nav-link {
-                padding: 10px 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                min-height: 43px;
+                padding: 8px 0;
+                color: #fff;
+                font-size: 13px;
+            }
+
+            #home-navigation .home-nav-link:hover,
+            #home-navigation .home-nav-link.active {
+                color: #fff !important;
             }
 
             #home-navigation .home-nav-contact {
-                display: inline-block;
-                margin: 8px 0 0;
-                padding: 12px 18px;
+                display: flex;
+                margin: 0;
+                padding: 8px 0;
+                color: #fff;
+                background: transparent;
+            }
+
+            #home-navigation .home-nav-contact:hover {
+                background: transparent;
+            }
+
+            .home-nav-arrow {
+                width: 27px;
+                height: 27px;
+                display: grid;
+                place-items: center;
+                color: #fff;
+                background: var(--home-ink);
+                font: 500 21px/1 'Montserrat', sans-serif;
+            }
+
+            .home-nav-contact-details {
+                display: grid;
+                gap: 14px;
+                margin-top: 30px;
+                padding-top: 2px;
+            }
+
+            .home-nav-contact-details a {
+                display: flex;
+                align-items: center;
+                gap: 11px;
+                color: #fff !important;
+                font: 500 12px/1.45 'Roboto', sans-serif;
+                text-decoration: none;
+                overflow-wrap: anywhere;
+            }
+
+            #home-navigation .home-nav-contact-details a span {
+                color: #fff !important;
+            }
+
+            .home-nav-contact-icon {
+                width: 32px;
+                height: 32px;
+                flex: 0 0 32px;
+                display: grid;
+                place-items: center;
+                color: #fff;
+                background: rgba(142, 32, 62, .5);
+                font-size: 14px;
             }
 
             .home-slider {
@@ -467,6 +857,58 @@
         @media (max-width: 640px) {
             .homepage-hero-shell {
                 padding: 0 12px;
+            }
+
+            .home-rates-section {
+                margin-top: 36px;
+            }
+
+            .home-rates-inner {
+                width: min(100% - 32px, 1120px);
+                padding: 42px 0 38px;
+            }
+
+            .home-rates-heading {
+                display: block;
+                margin-bottom: 20px;
+            }
+
+            .home-rates-calculator {
+                max-width: 270px;
+                margin-top: 18px;
+            }
+
+            .home-rates-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 9px;
+            }
+
+            .home-rate-card {
+                padding: 14px 12px 13px;
+            }
+
+            .home-rate-symbol {
+                width: 36px;
+                height: 36px;
+                flex-basis: 36px;
+                font-size: 14px;
+            }
+
+            .home-rate-card-top {
+                gap: 9px;
+            }
+
+            .home-rate-currency strong {
+                font-size: 12px;
+            }
+
+            .home-rate-equation {
+                margin-top: 15px;
+                font-size: 14px;
+            }
+
+            .home-rates-meta {
+                display: block;
             }
 
             .home-announcement {
@@ -599,7 +1041,6 @@
         You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.
       </p>
     <![endif]-->
-    <link rel="stylesheet" href="css/site-sidebar.css" />
 </head>
 
 <body>
@@ -621,25 +1062,46 @@
                         <small>Ideas into impact</small>
                     </span>
                 </a>
-                <button class="navbar-toggler mobile-menu-btn home-menu-toggle" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#homeNavbar" aria-controls="homeNavbar"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler home-menu-toggle" type="button"
+                    aria-controls="homeNavbar" aria-expanded="false" aria-label="Open navigation menu">
                     <span class="toggler-icon"></span>
                     <span class="toggler-icon"></span>
                     <span class="toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse home-nav-links" id="homeNavbar">
-                    <ul class="navbar-nav ms-auto align-items-lg-center">
-                        <li class="nav-item"><a class="home-nav-link active" href="index.html" aria-current="page">Home</a></li>
-                        <li class="nav-item"><a class="home-nav-link" href="service-details.html">Services</a></li>
-                        <li class="nav-item"><a class="home-nav-link" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="home-nav-link" href="projects.html">Projects</a></li>
-                        <li class="nav-item"><a class="home-nav-link home-nav-contact" href="contact.html">Get in touch</a></li>
+                <div class="home-nav-links" id="homeNavbar" aria-hidden="true">
+                    <div class="home-nav-panel-header">
+                        <a class="home-brand" href="index.html" aria-label="CapitaiBridge home">
+                            <span class="home-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span class="home-brand-wordmark">
+                                <strong>CapitaiBridge</strong>
+                                <small>Ideas into impact</small>
+                            </span>
+                        </a>
+                        <button class="home-nav-close" type="button" aria-label="Close navigation menu">&times;</button>
+                    </div>
+                    <ul class="navbar-nav ms-auto align-items-lg-center home-nav-list">
+                        <li class="nav-item"><a class="home-nav-link active" href="index.html" aria-current="page">Home<span class="home-nav-arrow" aria-hidden="true">&rsaquo;</span></a></li>
+                        <li class="nav-item"><a class="home-nav-link" href="service-details.html">Services<span class="home-nav-arrow" aria-hidden="true">&rsaquo;</span></a></li>
+                        <li class="nav-item"><a class="home-nav-link" href="#currency-snapshot">Rates<span class="home-nav-arrow" aria-hidden="true">&rsaquo;</span></a></li>
+                        <li class="nav-item"><a class="home-nav-link" href="about.html">About<span class="home-nav-arrow" aria-hidden="true">&rsaquo;</span></a></li>
+                        <li class="nav-item"><a class="home-nav-link" href="projects.html">Projects<span class="home-nav-arrow" aria-hidden="true">&rsaquo;</span></a></li>
+                        <li class="nav-item"><a class="home-nav-link home-nav-contact" href="contact.html">Get in touch<span class="home-nav-arrow" aria-hidden="true">&rsaquo;</span></a></li>
                     </ul>
+                    <div class="home-nav-contact-details" aria-label="Contact details">
+                        <a href="mailto:contact@capitaibridgeb.app">
+                            <span class="home-nav-contact-icon" aria-hidden="true">&#9993;</span>
+                            <span>contact@capitaibridgeb.app</span>
+                        </a>
+                        <a href="tel:+13462687410">
+                            <span class="home-nav-contact-icon" aria-hidden="true">&#9742;</span>
+                            <span>+1 (346) 268-7410</span>
+                        </a>
+                    </div>
                 </div>
             </nav>
         </div>
     </header>
+    <button class="home-nav-backdrop" type="button" aria-label="Close navigation menu" aria-hidden="true" tabindex="-1"></button>
     <main>
         <section class="homepage-hero-shell" aria-label="Welcome to CapitaiBridge">
             <div class="home-announcement">
@@ -690,6 +1152,81 @@
                     <button type="button" data-slide-index="0" aria-label="Show slide 1" aria-current="true"></button>
                     <button type="button" data-slide-index="1" aria-label="Show slide 2" aria-current="false"></button>
                     <button type="button" data-slide-index="2" aria-label="Show slide 3" aria-current="false"></button>
+                </div>
+            </div>
+        </section>
+        <section class="home-rates-section" id="currency-snapshot" aria-labelledby="home-rates-title">
+            <div class="home-rates-inner">
+                <div class="home-rates-heading">
+                    <div>
+                        <span class="home-rates-eyebrow">A useful snapshot</span>
+                        <h2 id="home-rates-title">Currency reference rates</h2>
+                        <p>Check an indicative conversion using the latest available daily reference rates.</p>
+                    </div>
+                    <div class="home-rates-calculator">
+                        <label for="home-rates-amount">Convert from USD</label>
+                        <div class="home-rates-input-wrap">
+                            <span aria-hidden="true">$</span>
+                            <input id="home-rates-amount" type="number" min="0" step="any" value="100"
+                                inputmode="decimal">
+                        </div>
+                    </div>
+                </div>
+                <div class="home-rates-grid" aria-label="Indicative currency conversions">
+                    <article class="home-rate-card" data-rate-card data-currency="EUR">
+                        <div class="home-rate-card-top">
+                            <span class="home-rate-symbol" aria-hidden="true">€</span>
+                            <div class="home-rate-currency"><strong>Euro</strong><span>EUR</span></div>
+                        </div>
+                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> EUR</p>
+                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
+                    </article>
+                    <article class="home-rate-card" data-rate-card data-currency="GBP">
+                        <div class="home-rate-card-top">
+                            <span class="home-rate-symbol" aria-hidden="true">£</span>
+                            <div class="home-rate-currency"><strong>British pound</strong><span>GBP</span></div>
+                        </div>
+                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> GBP</p>
+                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
+                    </article>
+                    <article class="home-rate-card" data-rate-card data-currency="CAD">
+                        <div class="home-rate-card-top">
+                            <span class="home-rate-symbol" aria-hidden="true">C$</span>
+                            <div class="home-rate-currency"><strong>Canadian dollar</strong><span>CAD</span></div>
+                        </div>
+                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> CAD</p>
+                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
+                    </article>
+                    <article class="home-rate-card" data-rate-card data-currency="AUD">
+                        <div class="home-rate-card-top">
+                            <span class="home-rate-symbol" aria-hidden="true">A$</span>
+                            <div class="home-rate-currency"><strong>Australian dollar</strong><span>AUD</span></div>
+                        </div>
+                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> AUD</p>
+                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
+                    </article>
+                    <article class="home-rate-card" data-rate-card data-currency="SEK">
+                        <div class="home-rate-card-top">
+                            <span class="home-rate-symbol" aria-hidden="true">kr</span>
+                            <div class="home-rate-currency"><strong>Swedish krona</strong><span>SEK</span></div>
+                        </div>
+                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> SEK</p>
+                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
+                    </article>
+                    <article class="home-rate-card" data-rate-card data-currency="JPY">
+                        <div class="home-rate-card-top">
+                            <span class="home-rate-symbol" aria-hidden="true">¥</span>
+                            <div class="home-rate-currency"><strong>Japanese yen</strong><span>JPY</span></div>
+                        </div>
+                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> JPY</p>
+                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
+                    </article>
+                </div>
+                <div class="home-rates-meta">
+                    <p class="home-rates-status" id="home-rates-status" role="status" aria-live="polite">
+                        Loading the latest available reference rates…
+                    </p>
+                    <button class="home-rates-retry" id="home-rates-retry" type="button" hidden>Try again</button>
                 </div>
             </div>
         </section>
@@ -1309,7 +1846,6 @@ contact@capitaibridgeb.app
 <script src="js/tiny-slider.js"></script>
 <script src="js/glightbox.min.js"></script>
 <script src="js/main.js"></script>
-<script src="js/site-sidebar.js"></script>
 <script>
     /* Client
     -----------------------*/
@@ -1381,6 +1917,77 @@ contact@capitaibridgeb.app
 </script>
 <script>
     (function () {
+        const toggle = document.querySelector('.home-menu-toggle');
+        const panel = document.querySelector('#homeNavbar');
+        const closeButton = panel?.querySelector('.home-nav-close');
+        const backdrop = document.querySelector('.home-nav-backdrop');
+        if (!toggle || !panel || !closeButton || !backdrop) return;
+
+        const mobileMenu = window.matchMedia('(max-width: 991px)');
+        panel.inert = mobileMenu.matches;
+        panel.setAttribute('aria-hidden', String(mobileMenu.matches));
+
+        function closeMenu(restoreFocus = false, inertPanel = true) {
+            panel.classList.remove('is-open');
+            panel.setAttribute('aria-hidden', 'true');
+            panel.inert = inertPanel;
+            backdrop.setAttribute('aria-hidden', 'true');
+            backdrop.style.removeProperty('opacity');
+            backdrop.style.removeProperty('visibility');
+            document.body.classList.remove('home-menu-open');
+            document.querySelector('#home-navigation').style.removeProperty('z-index');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Open navigation menu');
+            if (restoreFocus) toggle.focus();
+        }
+
+        function openMenu() {
+            panel.inert = false;
+            panel.classList.add('is-open');
+            panel.setAttribute('aria-hidden', 'false');
+            backdrop.setAttribute('aria-hidden', 'false');
+            backdrop.style.opacity = '1';
+            backdrop.style.visibility = 'visible';
+            document.body.classList.add('home-menu-open');
+            document.querySelector('#home-navigation').style.zIndex = '1100';
+            toggle.setAttribute('aria-expanded', 'true');
+            toggle.setAttribute('aria-label', 'Close navigation menu');
+            closeButton.focus();
+        }
+
+        toggle.addEventListener('click', () => {
+            if (toggle.getAttribute('aria-expanded') === 'true') {
+                closeMenu(true);
+            } else {
+                openMenu();
+            }
+        });
+
+        closeButton.addEventListener('click', () => closeMenu(true));
+        backdrop.addEventListener('click', () => closeMenu(true));
+        panel.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => closeMenu());
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+                closeMenu(true);
+            }
+        });
+
+        window.matchMedia('(min-width: 992px)').addEventListener('change', (event) => {
+            if (event.matches) {
+                closeMenu(false, false);
+                panel.setAttribute('aria-hidden', 'false');
+            } else {
+                closeMenu(false, true);
+                panel.setAttribute('aria-hidden', 'true');
+            }
+        });
+    })();
+</script>
+<script>
+    (function () {
         const carousel = document.querySelector('.home-slider');
         if (!carousel) return;
 
@@ -1428,6 +2035,120 @@ contact@capitaibridgeb.app
         });
 
         startAutoplay();
+    })();
+</script>
+<script>
+    (function () {
+        const section = document.querySelector('.home-rates-section');
+        if (!section) return;
+
+        const cards = Array.from(section.querySelectorAll('[data-rate-card]'));
+        const amountInput = section.querySelector('#home-rates-amount');
+        const status = section.querySelector('#home-rates-status');
+        const retryButton = section.querySelector('#home-rates-retry');
+        const currencyCodes = cards.map((card) => card.dataset.currency);
+        const usdFormatter = new Intl.NumberFormat(undefined, {
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 2,
+        });
+        let rates = null;
+
+        function updateEstimates() {
+            const amount = Number(amountInput.value);
+            const isValidAmount = amountInput.value !== '' && Number.isFinite(amount) && amount >= 0;
+
+            cards.forEach((card) => {
+                const estimate = card.querySelector('[data-rate-estimate]');
+                if (!rates) return;
+
+                if (!isValidAmount) {
+                    estimate.textContent = 'Enter a valid USD amount above.';
+                    return;
+                }
+
+                const currency = card.dataset.currency;
+                const fractionDigits = currency === 'JPY' ? 0 : 2;
+                const formatter = new Intl.NumberFormat(undefined, {
+                    style: 'currency',
+                    currency,
+                    maximumFractionDigits: fractionDigits,
+                });
+                const convertedAmount = amount * rates[currency];
+
+                estimate.textContent = Number.isFinite(convertedAmount)
+                    ? `About ${formatter.format(convertedAmount)} for ${usdFormatter.format(amount)}`
+                    : 'Amount is too large to calculate.';
+            });
+        }
+
+        async function loadRates() {
+            retryButton.hidden = true;
+            retryButton.disabled = true;
+            status.textContent = 'Loading the latest available reference rates…';
+
+            const controller = new AbortController();
+            const timeoutId = window.setTimeout(() => controller.abort(), 12000);
+
+            try {
+                const symbols = currencyCodes.join(',');
+                const response = await fetch(
+                    `https://api.frankfurter.dev/v1/latest?base=USD&symbols=${encodeURIComponent(symbols)}`,
+                    { signal: controller.signal, cache: 'no-store' }
+                );
+                if (!response.ok) {
+                    throw new Error(`Reference rates request failed with status ${response.status}.`);
+                }
+
+                const data = await response.json();
+                if (
+                    data.base !== 'USD'
+                    || typeof data.date !== 'string'
+                    || Number.isNaN(Date.parse(`${data.date}T00:00:00Z`))
+                    || !data.rates
+                ) {
+                    throw new Error('Reference rates response was incomplete or invalid.');
+                }
+
+                const nextRates = {};
+                currencyCodes.forEach((currency) => {
+                    const rate = data.rates[currency];
+                    if (typeof rate !== 'number' || !Number.isFinite(rate) || rate <= 0) {
+                        throw new Error(`Reference rate for ${currency} was unavailable.`);
+                    }
+                    nextRates[currency] = rate;
+                });
+
+                rates = nextRates;
+                cards.forEach((card) => {
+                    const rate = rates[card.dataset.currency];
+                    card.querySelector('[data-rate-value]').textContent = rate.toLocaleString(
+                        undefined,
+                        { maximumSignificantDigits: 6 }
+                    );
+                });
+
+                const updatedDate = new Date(`${data.date}T00:00:00Z`);
+                status.textContent = `Daily reference rates dated ${updatedDate.toLocaleDateString(undefined, {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    timeZone: 'UTC',
+                })}.`;
+                updateEstimates();
+            } catch (error) {
+                console.error('Unable to load public exchange reference rates:', error);
+                status.textContent = 'Reference rates could not be loaded. Check your connection and try again.';
+                retryButton.hidden = false;
+            } finally {
+                window.clearTimeout(timeoutId);
+                retryButton.disabled = false;
+            }
+        }
+
+        amountInput.addEventListener('input', updateEstimates);
+        retryButton.addEventListener('click', loadRates);
+        loadRates();
     })();
 </script>
 

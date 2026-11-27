@@ -9,7 +9,8 @@
     header.classList.add('site-sidebar-header');
     panel.classList.add('site-sidebar-panel');
     panel.classList.remove('collapse');
-    panel.setAttribute('aria-hidden', 'true');
+    const mobileViewport = window.matchMedia('(max-width: 991.98px)');
+    panel.setAttribute('aria-hidden', String(mobileViewport.matches));
     panel.setAttribute('aria-label', 'Site navigation');
 
     toggle.classList.remove('mobile-menu-btn', 'active');
@@ -60,13 +61,13 @@
     backdrop.setAttribute('aria-hidden', 'true');
     document.body.append(backdrop);
 
-    function closeMenu(restoreFocus) {
+    function closeMenu(restoreFocus, inertPanel = true) {
         panel.classList.remove('site-sidebar-open');
         panel.style.removeProperty('transform');
         panel.style.removeProperty('visibility');
         backdrop.classList.remove('is-visible');
         panel.setAttribute('aria-hidden', 'true');
-        panel.inert = true;
+        panel.inert = inertPanel;
         document.body.classList.remove('site-sidebar-open');
         toggle.setAttribute('aria-expanded', 'false');
         toggle.setAttribute('aria-label', 'Open navigation menu');
@@ -102,8 +103,9 @@
         }
     });
     window.matchMedia('(min-width: 992px)').addEventListener('change', (event) => {
-        if (event.matches) closeMenu(false);
+        closeMenu(false, !event.matches);
+        panel.setAttribute('aria-hidden', String(!event.matches));
     });
 
-    panel.inert = true;
+    panel.inert = mobileViewport.matches;
 })();
