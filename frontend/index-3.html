@@ -68,16 +68,35 @@
         }
 
         .home-brand {
-            min-width: 220px;
+            min-width: 228px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 0 26px;
+            gap: 13px;
+            padding: 0 24px;
             margin: 0;
             color: #fff;
             background: var(--home-wine);
-            font: 800 20px/1 'Montserrat', sans-serif;
-            letter-spacing: -.7px;
+            text-decoration: none;
+        }
+
+        #home-navigation .home-brand-wordmark,
+        #home-navigation .home-brand-wordmark strong,
+        #home-navigation .home-brand-wordmark small {
+            display: block;
+            color: #fff;
+        }
+
+        #home-navigation .home-brand-wordmark strong {
+            font: 800 18px/1.1 'Montserrat', sans-serif;
+            letter-spacing: -.65px;
+        }
+
+        #home-navigation .home-brand-wordmark small {
+            margin-top: 5px;
+            font: 600 8px/1 'Montserrat', sans-serif;
+            letter-spacing: 1.55px;
+            opacity: .78;
+            text-transform: uppercase;
         }
 
         .home-brand:hover,
@@ -86,25 +105,26 @@
         }
 
         .home-brand-mark {
-            width: 32px;
+            width: 34px;
             display: grid;
-            gap: 3px;
+            gap: 4px;
             transform: skewY(-22deg);
         }
 
         .home-brand-mark i {
             display: block;
-            height: 5px;
+            height: 6px;
             border-radius: 2px;
             background: #fff;
+            box-shadow: 0 1px 5px rgba(255, 255, 255, .18);
         }
 
         .home-brand-mark i:nth-child(2) {
-            width: 25px;
+            width: 27px;
         }
 
         .home-brand-mark i:nth-child(3) {
-            width: 19px;
+            width: 20px;
         }
 
         .home-nav-links {
@@ -214,12 +234,37 @@
         .home-slide-image {
             background-position: center;
             background-size: cover;
-            transform: scale(1.02);
-            transition: transform 7s ease;
+            transform: scale(1.12);
         }
 
         .home-slide.is-active .home-slide-image {
-            transform: scale(1);
+            animation: home-slide-zoom 7s cubic-bezier(.2, .65, .25, 1) both;
+        }
+
+        .home-slide.is-active .home-slide-copy {
+            animation: home-copy-enter .7s ease-out both;
+        }
+
+        @keyframes home-slide-zoom {
+            from {
+                transform: scale(1.12) translateX(0);
+            }
+
+            to {
+                transform: scale(1.035) translateX(-.6%);
+            }
+        }
+
+        @keyframes home-copy-enter {
+            from {
+                opacity: 0;
+                transform: translateY(calc(-50% + 16px));
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(-50%);
+            }
         }
 
         .home-slide-shade {
@@ -386,7 +431,7 @@
             .home-brand {
                 min-width: 180px;
                 min-height: 76px;
-                padding: 0 22px;
+                padding: 0 18px;
             }
 
             .home-nav-links {
@@ -532,8 +577,19 @@
 
         @media (prefers-reduced-motion: reduce) {
             .home-slide,
-            .home-slide-image {
+            .home-slide-image,
+            .home-slide-copy {
                 transition: none;
+                animation: none !important;
+            }
+
+            .home-slide:not(.is-active) .home-slide-copy {
+                opacity: 0;
+            }
+
+            .home-slide.is-active .home-slide-copy {
+                opacity: 1;
+                transform: translateY(-50%);
             }
         }
     </style>
@@ -559,7 +615,10 @@
             <nav class="navbar navbar-expand-lg home-nav" aria-label="Main navigation">
                 <a class="home-brand" href="index.html" aria-label="CapitaiBridge home">
                     <span class="home-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-                    <span>CapitaiBridge</span>
+                    <span class="home-brand-wordmark">
+                        <strong>CapitaiBridge</strong>
+                        <small>Ideas into impact</small>
+                    </span>
                 </a>
                 <button class="navbar-toggler mobile-menu-btn home-menu-toggle" type="button"
                     data-bs-toggle="collapse" data-bs-target="#homeNavbar" aria-controls="homeNavbar"
@@ -1181,7 +1240,7 @@ fair, and transparent.</p>
     <div class="footer-top">
         <div class="container">
 <div class="row">
-<div class="col-lg-4 col-md-6 col-12 col-sm-6">
+<div class="col-lg-6 col-md-6 col-12 col-sm-6">
 <div class="footer-cmn f-activity wow fadeInUp" data-wow-delay=".2s">
 
 <h6>GET IN TOUCH</h6>
@@ -1202,7 +1261,7 @@ fair, and transparent.</p>
                         </ul>
                     </div>
                 </div>
-<div class="col-lg-4 col-md-6 col-12 col-sm-6">
+<div class="col-lg-6 col-md-6 col-12 col-sm-6">
 <div class="footer-cmn f-address wow fadeInUp" data-wow-delay=".4s">
 <h6>Location</h6>
 <h5>Head Office</h5>
