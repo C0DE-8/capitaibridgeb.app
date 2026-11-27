@@ -222,6 +222,96 @@
             color: inherit;
         }
 
+        .wealth-offerings {
+            width: min(100% - 48px, 1120px);
+            margin: 0 auto;
+            padding: 72px 0 76px;
+            text-align: center;
+        }
+
+        .wealth-offerings-heading {
+            margin-bottom: 30px;
+        }
+
+        .wealth-offerings-heading h2 {
+            margin: 0 0 10px;
+            color: #1d2028;
+            font: 700 40px/1.15 'Montserrat', sans-serif;
+        }
+
+        .wealth-offerings-heading p {
+            margin: 0;
+            color: #77777e;
+            font: 400 16px/1.7 'Montserrat', sans-serif;
+        }
+
+        .wealth-offering-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .wealth-offering-card {
+            padding: 34px 28px 32px;
+            border: 1px solid #efedf0;
+            border-radius: 4px;
+            background: #fff;
+        }
+
+        .wealth-offering-mark {
+            width: 82px;
+            height: 82px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 22px;
+            border-radius: 50%;
+            color: #a8323a;
+            background: #f7f5f6;
+            font: 700 22px/1 'Montserrat', sans-serif;
+        }
+
+        .wealth-offering-card .offering-label {
+            display: block;
+            margin-bottom: 10px;
+            color: #a8323a;
+            font: 700 12px/1.4 'Montserrat', sans-serif;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .wealth-offering-card h3 {
+            margin: 0 0 12px;
+            color: #1d2028;
+            font: 700 21px/1.35 'Montserrat', sans-serif;
+        }
+
+        .wealth-offering-card p {
+            min-height: 54px;
+            margin: 0 0 20px;
+            color: #77777e;
+            font: 400 14px/1.65 'Montserrat', sans-serif;
+        }
+
+        .wealth-offering-card a {
+            color: #1d2028;
+            font: 700 14px/1.4 'Montserrat', sans-serif;
+            text-decoration: none;
+        }
+
+        @media (max-width: 991px) {
+            .wealth-offering-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wealth-offering-card p {
+                min-height: 0;
+            }
+
+            .wealth-offerings-heading h2 {
+                font-size: 34px;
+            }
+        }
+
         .home-rates-section {
             position: relative;
             margin-top: 60px;
@@ -1059,7 +1149,7 @@
                     <span class="home-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
                     <span class="home-brand-wordmark">
                         <strong>CapitaiBridge</strong>
-                        <small>Ideas into impact</small>
+                        <small>PRIVATE WEALTH MANAGEMENT</small>
                     </span>
                 </a>
                 <button class="navbar-toggler home-menu-toggle" type="button"
@@ -1074,7 +1164,7 @@
                             <span class="home-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
                             <span class="home-brand-wordmark">
                                 <strong>CapitaiBridge</strong>
-                                <small>Ideas into impact</small>
+                                <small>PRIVATE WEALTH MANAGEMENT</small>
                             </span>
                         </a>
                         <button class="home-nav-close" type="button" aria-label="Close navigation menu">&times;</button>
@@ -1115,9 +1205,9 @@
                     <div class="home-slide-shade"></div>
                     <div class="home-slide-shape" aria-hidden="true"></div>
                     <div class="home-slide-copy">
-                        <span class="home-slide-eyebrow">Ideas into impact</span>
-                        <h1>A brighter way to move forward</h1>
-                        <p>Good things happen when clear thinking meets a fresh perspective. Let’s make your next step count.</p>
+                        <span class="home-slide-eyebrow">PRIVATE WEALTH</span>
+                        <h1>A clearer way to steward your capital</h1>
+                        <p>Lasting wealth starts with disciplined strategy and a long term view. Let’s build your portfolio deliberately.</p>
                     </div>
                 </article>
                 <article class="home-slide" aria-roledescription="slide" aria-label="2 of 3" aria-hidden="true">
@@ -1125,9 +1215,9 @@
                     <div class="home-slide-shade"></div>
                     <div class="home-slide-shape" aria-hidden="true"></div>
                     <div class="home-slide-copy">
-                        <span class="home-slide-eyebrow">Made for your momentum</span>
-                        <h1>Built around your next big idea</h1>
-                        <p>Bring your ambition. We’ll bring thoughtful service and the support to help you keep moving.</p>
+                        <span class="home-slide-eyebrow">TRUSTED STEWARDSHIP</span>
+                        <h1>Confidence for every financial milestone</h1>
+                        <p>We simplify complex asset management, so you can focus on preserving and growing your legacy.</p>
                     </div>
                 </article>
                 <article class="home-slide" aria-roledescription="slide" aria-label="3 of 3" aria-hidden="true">
@@ -1135,9 +1225,9 @@
                     <div class="home-slide-shade"></div>
                     <div class="home-slide-shape" aria-hidden="true"></div>
                     <div class="home-slide-copy">
-                        <span class="home-slide-eyebrow">A partner in progress</span>
-                        <h1>Confidence for every step ahead</h1>
-                        <p>We make the complicated feel more considered, so you can focus on the things that matter most.</p>
+                        <span class="home-slide-eyebrow">BESPOKE SOLUTIONS</span>
+                        <h1>Structured around your financial ambitions</h1>
+                        <p>Bring your vision. We’ll provide dedicated advisory and the liquidity to keep your plans moving.</p>
                     </div>
                 </article>
                 <div class="home-account-links" aria-label="Account access">
@@ -1155,82 +1245,37 @@
                 </div>
             </div>
         </section>
-        <section class="home-rates-section" id="currency-snapshot" aria-labelledby="home-rates-title">
-            <div class="home-rates-inner">
-                <div class="home-rates-heading">
-                    <div>
-                        <span class="home-rates-eyebrow">A useful snapshot</span>
-                        <h2 id="home-rates-title">Currency reference rates</h2>
-                        <p>Check an indicative conversion using the latest available daily reference rates.</p>
-                    </div>
-                    <div class="home-rates-calculator">
-                        <label for="home-rates-amount">Convert from USD</label>
-                        <div class="home-rates-input-wrap">
-                            <span aria-hidden="true">$</span>
-                            <input id="home-rates-amount" type="number" min="0" step="any" value="100"
-                                inputmode="decimal">
-                        </div>
-                    </div>
-                </div>
-                <div class="home-rates-grid" aria-label="Indicative currency conversions">
-                    <article class="home-rate-card" data-rate-card data-currency="EUR">
-                        <div class="home-rate-card-top">
-                            <span class="home-rate-symbol" aria-hidden="true">€</span>
-                            <div class="home-rate-currency"><strong>Euro</strong><span>EUR</span></div>
-                        </div>
-                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> EUR</p>
-                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
-                    </article>
-                    <article class="home-rate-card" data-rate-card data-currency="GBP">
-                        <div class="home-rate-card-top">
-                            <span class="home-rate-symbol" aria-hidden="true">£</span>
-                            <div class="home-rate-currency"><strong>British pound</strong><span>GBP</span></div>
-                        </div>
-                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> GBP</p>
-                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
-                    </article>
-                    <article class="home-rate-card" data-rate-card data-currency="CAD">
-                        <div class="home-rate-card-top">
-                            <span class="home-rate-symbol" aria-hidden="true">C$</span>
-                            <div class="home-rate-currency"><strong>Canadian dollar</strong><span>CAD</span></div>
-                        </div>
-                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> CAD</p>
-                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
-                    </article>
-                    <article class="home-rate-card" data-rate-card data-currency="AUD">
-                        <div class="home-rate-card-top">
-                            <span class="home-rate-symbol" aria-hidden="true">A$</span>
-                            <div class="home-rate-currency"><strong>Australian dollar</strong><span>AUD</span></div>
-                        </div>
-                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> AUD</p>
-                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
-                    </article>
-                    <article class="home-rate-card" data-rate-card data-currency="SEK">
-                        <div class="home-rate-card-top">
-                            <span class="home-rate-symbol" aria-hidden="true">kr</span>
-                            <div class="home-rate-currency"><strong>Swedish krona</strong><span>SEK</span></div>
-                        </div>
-                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> SEK</p>
-                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
-                    </article>
-                    <article class="home-rate-card" data-rate-card data-currency="JPY">
-                        <div class="home-rate-card-top">
-                            <span class="home-rate-symbol" aria-hidden="true">¥</span>
-                            <div class="home-rate-currency"><strong>Japanese yen</strong><span>JPY</span></div>
-                        </div>
-                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> JPY</p>
-                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
-                    </article>
-                </div>
-                <div class="home-rates-meta">
-                    <p class="home-rates-status" id="home-rates-status" role="status" aria-live="polite">
-                        Loading the latest available reference rates…
-                    </p>
-                    <button class="home-rates-retry" id="home-rates-retry" type="button" hidden>Try again</button>
-                </div>
+
+        <section class="wealth-offerings" aria-labelledby="wealth-offerings-title">
+            <div class="wealth-offerings-heading">
+                <h2 id="wealth-offerings-title">Private Wealth for a Better Tomorrow</h2>
+                <p>Dedicated guidance for preserving, growing and stewarding your wealth.</p>
+            </div>
+            <div class="wealth-offering-grid">
+                <article class="wealth-offering-card">
+                    <div class="wealth-offering-mark" aria-hidden="true">01</div>
+                    <span class="offering-label">Capital Preservation</span>
+                    <h3>Disciplined returns with lasting purpose</h3>
+                    <p>Build resilient portfolios through thoughtful allocation and measured risk management.</p>
+                    <a href="service-details.html">Discover more <span aria-hidden="true">+</span></a>
+                </article>
+                <article class="wealth-offering-card">
+                    <div class="wealth-offering-mark" aria-hidden="true">02</div>
+                    <span class="offering-label">Bespoke Portfolios</span>
+                    <h3>Strategies shaped around your ambitions</h3>
+                    <p>Align investments with your life goals, liquidity needs and long-term legacy.</p>
+                    <a href="service-details.html">Discover more <span aria-hidden="true">+</span></a>
+                </article>
+                <article class="wealth-offering-card">
+                    <div class="wealth-offering-mark" aria-hidden="true">03</div>
+                    <span class="offering-label">Alternative Opportunities</span>
+                    <h3>Considered strategies for enduring growth</h3>
+                    <p>Explore selective opportunities designed to diversify and strengthen your portfolio.</p>
+                    <a href="service-details.html">Discover more <span aria-hidden="true">+</span></a>
+                </article>
             </div>
         </section>
-    <!-- About Start -->
+
     <section id="about-section" class="mt-70">
         <div class="container">
             <div class="row justify-content-center">
@@ -1250,10 +1295,9 @@
                         <div class="card-body">
                             <div class="section-title mb-30 wow fadeInRight" data-wow-delay=".6s">
 <h6 class="card-subtitle">ABOUT CapitaiBridge</h6>
-<h2 class="card-title">Small Business Loans For
-a Daily Expenses</h2>
-<p class="card-text">At the CapitaiBridge, we believe that your bank should support your dreams and aspirations. That’s why we have developed convenient mortgage solutions to help make your dream of owning your own business a reality...</p>
-<p>Whether you are a first time investor, or thinking about property purchase as an investment, we have convenient mortgage solutions for you.</p>
+<h2 class="card-title">Purposeful Wealth for Every Ambition</h2>
+<p class="card-text">At CapitaiBridge, we provide considered private wealth guidance shaped around your priorities, aspirations and legacy.</p>
+<p>From diversified portfolios to strategic property advisory, our specialists bring clarity to every financial milestone.</p>
                             </div>
 <div class="row g-0">
 <div class="col-md-3 wow fadeInLeft" data-wow-delay=".6s">
@@ -1329,6 +1373,80 @@ a Daily Expenses</h2>
         </div>
     </section>
     <!-- Project End -->
+<section class="home-rates-section" id="currency-snapshot" aria-labelledby="home-rates-title">
+            <div class="home-rates-inner">
+                <div class="home-rates-heading">
+                    <div>
+                        <h2 id="home-rates-title">Currency reference rates</h2>
+                        <p>Check an indicative conversion using the latest available daily reference rates.</p>
+                    </div>
+                    <div class="home-rates-calculator">
+                        <label for="home-rates-amount">Convert from USD</label>
+                        <div class="home-rates-input-wrap">
+                            <span aria-hidden="true">$</span>
+                            <input id="home-rates-amount" type="number" min="0" step="any" value="100"
+                                inputmode="decimal">
+                        </div>
+                    </div>
+                </div>
+                <div class="home-rates-grid" aria-label="Indicative currency conversions">
+                    <article class="home-rate-card" data-rate-card data-currency="EUR">
+                        <div class="home-rate-card-top">
+                            <span class="home-rate-symbol" aria-hidden="true">€</span>
+                            <div class="home-rate-currency"><strong>Euro</strong><span>EUR</span></div>
+                        </div>
+                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> EUR</p>
+                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
+                    </article>
+                    <article class="home-rate-card" data-rate-card data-currency="GBP">
+                        <div class="home-rate-card-top">
+                            <span class="home-rate-symbol" aria-hidden="true">£</span>
+                            <div class="home-rate-currency"><strong>British pound</strong><span>GBP</span></div>
+                        </div>
+                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> GBP</p>
+                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
+                    </article>
+                    <article class="home-rate-card" data-rate-card data-currency="CAD">
+                        <div class="home-rate-card-top">
+                            <span class="home-rate-symbol" aria-hidden="true">C$</span>
+                            <div class="home-rate-currency"><strong>Canadian dollar</strong><span>CAD</span></div>
+                        </div>
+                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> CAD</p>
+                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
+                    </article>
+                    <article class="home-rate-card" data-rate-card data-currency="AUD">
+                        <div class="home-rate-card-top">
+                            <span class="home-rate-symbol" aria-hidden="true">A$</span>
+                            <div class="home-rate-currency"><strong>Australian dollar</strong><span>AUD</span></div>
+                        </div>
+                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> AUD</p>
+                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
+                    </article>
+                    <article class="home-rate-card" data-rate-card data-currency="SEK">
+                        <div class="home-rate-card-top">
+                            <span class="home-rate-symbol" aria-hidden="true">kr</span>
+                            <div class="home-rate-currency"><strong>Swedish krona</strong><span>SEK</span></div>
+                        </div>
+                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> SEK</p>
+                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
+                    </article>
+                    <article class="home-rate-card" data-rate-card data-currency="JPY">
+                        <div class="home-rate-card-top">
+                            <span class="home-rate-symbol" aria-hidden="true">¥</span>
+                            <div class="home-rate-currency"><strong>Japanese yen</strong><span>JPY</span></div>
+                        </div>
+                        <p class="home-rate-equation">1 USD = <span data-rate-value>Loading…</span> JPY</p>
+                        <p class="home-rate-estimate" data-rate-estimate>Waiting for the latest rate…</p>
+                    </article>
+                </div>
+                <div class="home-rates-meta">
+                    <p class="home-rates-status" id="home-rates-status" role="status" aria-live="polite">
+                        Loading the latest available reference rates…
+                    </p>
+                    <button class="home-rates-retry" id="home-rates-retry" type="button" hidden>Try again</button>
+                </div>
+            </div>
+        </section>
      <!-- Counter Start -->
     <section id="counter-section" class="bg-prefix mt-120">
     <div class="overlay-2">
@@ -1405,8 +1523,7 @@ a Daily Expenses</h2>
     <i class="flaticon-suitcase"></i>
     </div>
     <h5><a href="service-details-2.html">Business Loan</a></h5>
-    <p>Nurture the fast growth of your business or enterprise with any of our bank's 
-    business loans and grants</p>
+    <p>Build and scale your enterprise with tailored strategic capital and advisory solutions.</p>
     <div class="service-shape">
     <img src="images/service/shape.png" alt="shape">
                                         </div>
@@ -1420,7 +1537,7 @@ a Daily Expenses</h2>
     <i class="flaticon-smile"></i>
     </div>
     <h5><a href="service-details-2.html">Home Loan</a></h5>
-    <p>This is available for customers interested in buying houses with any of the Bank’s accredited property.</p>
+    <p>Explore considered property opportunities through dedicated residential advisory.</p>
     <div class="service-shape">
     <img src="images/service/shape.png" alt="shape">
                                         </div>
@@ -1506,7 +1623,7 @@ a Daily Expenses</h2>
     <i class="flaticon-sketch"></i>
             </div>
     <h5><a href="service-details-2.html">Land Loan</a></h5>
-    <p>Do you have a dream of becoming a land owner? Our bank has got your covered with world's most attractive offer.</p>
+    <p>Turn your property ambitions into a clear, long-term investment strategy with dedicated guidance.</p>
     <div class="service-shape">
      <img src="images/service/shape.png" alt="shape">
                                         </div>
@@ -1757,8 +1874,7 @@ fair, and transparent.</p>
 <i class="flaticon-left-quote"></i>
     </div>
 <div class="testimonial-text">
-<p>The modern banking system
- manufactures money out of nothing..</p>
+<p>Thoughtful stewardship gives wealth a clear purpose and a stronger direction for the future.</p>
                                     </div>
                                 </div>
                             </div>
