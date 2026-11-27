@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html class="no-js" lang="zxx">
+<html class="no-js" lang="en">
 
 
 
 
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>  
     <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>CapitaiBridge | Secure Online Banking</title>
-    <meta name="description" content="Secure personal and business banking with CapitaiBridge. Manage accounts, transfers, payments and financial services with trusted online access." />
-    <meta name="keywords" content="CapitaiBridge, online banking, secure banking, personal banking, business banking, money transfer, financial services" />
+    <title>CapitaiBridge | A clearer way forward</title>
+    <meta name="description" content="Discover CapitaiBridge: thoughtful service, fresh ideas, and a clearer way forward." />
+    <meta name="keywords" content="CapitaiBridge, service, ideas, community, business" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="CapitaiBridge | Secure Online Banking" />
-    <meta property="og:description" content="Secure personal and business banking with CapitaiBridge. Manage accounts, transfers, payments and financial services with trusted online access." />
+    <meta property="og:title" content="CapitaiBridge | A clearer way forward" />
+    <meta property="og:description" content="Thoughtful service, fresh ideas, and a clearer way forward." />
     <meta property="og:image" content="images/logo/capitai-bridge-logo.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CapitaiBridge | Secure Online Banking" />
-    <meta name="twitter:description" content="Secure personal and business banking with CapitaiBridge. Manage accounts, transfers, payments and financial services with trusted online access." />
+    <meta name="twitter:title" content="CapitaiBridge | A clearer way forward" />
+    <meta name="twitter:description" content="Thoughtful service, fresh ideas, and a clearer way forward." />
     <meta name="twitter:image" content="images/logo/capitai-bridge-logo.png" />
     <meta name="theme-color" content="#991b1b" />
     <link rel="icon" type="image/png" href="images/logo/capitai-bridge-logo.png" />
@@ -38,6 +38,505 @@
     <link rel="stylesheet" href="css/glightbox.min.css" />
     <link rel="stylesheet" href="css/typography.css" />
     <link rel="stylesheet" href="style.css" />
+    <style>
+        :root {
+            --home-ink: #20212a;
+            --home-cream: #f7f2ec;
+            --home-red: #d33a43;
+            --home-wine: #8e203e;
+        }
+
+        #home-navigation {
+            position: relative;
+            z-index: 20;
+            background: var(--home-cream);
+        }
+
+        .home-nav-wrap {
+            max-width: 1320px;
+            min-height: 78px;
+            margin: 0 auto;
+            display: flex;
+            align-items: stretch;
+            padding: 0 24px;
+        }
+
+        .home-nav {
+            width: 100%;
+            min-height: 78px;
+            align-items: stretch;
+        }
+
+        .home-brand {
+            min-width: 220px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 26px;
+            margin: 0;
+            color: #fff;
+            background: var(--home-wine);
+            font: 800 20px/1 'Montserrat', sans-serif;
+            letter-spacing: -.7px;
+        }
+
+        .home-brand:hover,
+        .home-brand:focus {
+            color: #fff;
+        }
+
+        .home-brand-mark {
+            width: 32px;
+            display: grid;
+            gap: 3px;
+            transform: skewY(-22deg);
+        }
+
+        .home-brand-mark i {
+            display: block;
+            height: 5px;
+            border-radius: 2px;
+            background: #fff;
+        }
+
+        .home-brand-mark i:nth-child(2) {
+            width: 25px;
+        }
+
+        .home-brand-mark i:nth-child(3) {
+            width: 19px;
+        }
+
+        .home-nav-links {
+            align-items: center;
+        }
+
+        #home-navigation .home-nav-link {
+            display: block;
+            padding: 28px 15px;
+            color: var(--home-ink);
+            font: 600 14px/1.5 'Montserrat', sans-serif;
+            transition: color .2s ease;
+        }
+
+        #home-navigation .home-nav-link:hover,
+        #home-navigation .home-nav-link.active {
+            color: var(--home-red);
+        }
+
+        #home-navigation .home-nav-contact {
+            margin-left: 12px;
+            padding: 13px 20px;
+            color: #fff;
+            background: var(--home-red);
+        }
+
+        #home-navigation .home-nav-contact:hover {
+            color: #fff;
+            background: var(--home-wine);
+        }
+
+        .home-menu-toggle {
+            margin-left: auto;
+            padding: 12px;
+            border: 0;
+            color: var(--home-ink);
+        }
+
+        .homepage-hero-shell {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .home-announcement {
+            min-height: 52px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            color: #fff;
+            background: linear-gradient(105deg, var(--home-red), var(--home-wine));
+            font: 500 14px/1.5 'Montserrat', sans-serif;
+            text-align: center;
+        }
+
+        .home-announcement strong {
+            font-weight: 700;
+        }
+
+        .home-announcement > span {
+            color: #fff;
+        }
+
+        .home-announcement a {
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .home-announcement a span {
+            color: inherit;
+        }
+
+        .home-slider {
+            position: relative;
+            min-height: 560px;
+            overflow: hidden;
+            isolation: isolate;
+            background: #24252b;
+        }
+
+        .home-slide {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .8s ease, visibility .8s ease;
+        }
+
+        .home-slide.is-active {
+            z-index: 1;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .home-slide-image,
+        .home-slide-shade {
+            position: absolute;
+            inset: 0;
+        }
+
+        .home-slide-image {
+            background-position: center;
+            background-size: cover;
+            transform: scale(1.02);
+            transition: transform 7s ease;
+        }
+
+        .home-slide.is-active .home-slide-image {
+            transform: scale(1);
+        }
+
+        .home-slide-shade {
+            background: linear-gradient(90deg, rgba(20, 21, 27, .42) 0%, rgba(20, 21, 27, .66) 40%, rgba(20, 21, 27, .72) 100%);
+        }
+
+        .home-slide-shape {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 27%;
+            height: 100%;
+            background: url('images/homepage/slider-shape.png') right center / auto 100% no-repeat;
+            opacity: .9;
+        }
+
+        .home-slide-copy {
+            position: absolute;
+            top: 50%;
+            right: 8%;
+            width: min(52%, 610px);
+            color: #fff;
+            transform: translateY(-50%);
+        }
+
+        .home-slide-eyebrow {
+            display: block;
+            margin-bottom: 16px;
+            color: #ffd1d1;
+            font: 700 12px/1.4 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .home-slide-copy h1 {
+            margin: 0 0 18px;
+            color: #fff;
+            font: 600 clamp(38px, 4.2vw, 62px)/1.08 'Montserrat', sans-serif;
+            letter-spacing: -1.8px;
+        }
+
+        .home-slide-copy p {
+            max-width: 480px;
+            margin: 0;
+            color: rgba(255, 255, 255, .86);
+            font: 400 16px/1.7 'Roboto', sans-serif;
+        }
+
+        .home-slide-cta {
+            display: inline-flex;
+            align-items: center;
+            min-height: 50px;
+            margin-top: 30px;
+            padding: 0 24px;
+            color: var(--home-ink);
+            background: #fff;
+            font: 700 14px/1 'Montserrat', sans-serif;
+            text-decoration: none;
+            transition: color .2s ease, background .2s ease;
+        }
+
+        .home-slide-cta:hover,
+        .home-slide-cta:focus {
+            color: #fff;
+            background: var(--home-red);
+        }
+
+        .home-account-links {
+            position: absolute;
+            bottom: 20px;
+            left: 18px;
+            z-index: 3;
+            width: 196px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .home-account-links a {
+            min-height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            color: #fff;
+            background: var(--home-wine);
+            font: 600 14px/1 'Montserrat', sans-serif;
+            text-decoration: none;
+            transition: background .2s ease;
+        }
+
+        .home-account-links a:last-child {
+            background: var(--home-red);
+        }
+
+        .home-account-links a:hover {
+            background: var(--home-ink);
+        }
+
+        .home-account-links span {
+            width: 19px;
+            height: 19px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: var(--home-red);
+            background: #fff;
+            font-size: 10px;
+        }
+
+        .home-slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 230px;
+            z-index: 3;
+            display: flex;
+            gap: 10px;
+        }
+
+        .home-slider-controls button {
+            width: 50px;
+            height: 50px;
+            border: 1px solid rgba(255, 255, 255, .45);
+            color: #fff;
+            background: rgba(255, 255, 255, .2);
+            font-size: 28px;
+            line-height: 1;
+            transition: background .2s ease;
+        }
+
+        .home-slider-controls button:hover,
+        .home-slider-controls button:focus-visible {
+            background: var(--home-red);
+        }
+
+        .home-slider-dots {
+            position: absolute;
+            right: 25px;
+            bottom: 35px;
+            z-index: 3;
+            display: flex;
+            gap: 8px;
+        }
+
+        .home-slider-dots button {
+            width: 8px;
+            height: 8px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .55);
+        }
+
+        .home-slider-dots button[aria-current="true"] {
+            width: 24px;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        @media (max-width: 991px) {
+            .home-nav-wrap {
+                padding: 0;
+            }
+
+            .home-brand {
+                min-width: 180px;
+                min-height: 76px;
+                padding: 0 22px;
+            }
+
+            .home-nav-links {
+                position: absolute;
+                top: 100%;
+                right: 0;
+                left: 0;
+                padding: 8px 22px 18px;
+                background: var(--home-cream);
+                box-shadow: 0 15px 25px rgba(0, 0, 0, .08);
+            }
+
+            #home-navigation .home-nav-link {
+                padding: 10px 0;
+            }
+
+            #home-navigation .home-nav-contact {
+                display: inline-block;
+                margin: 8px 0 0;
+                padding: 12px 18px;
+            }
+
+            .home-slider {
+                min-height: 520px;
+            }
+
+            .home-slide-copy {
+                right: 6%;
+                width: 58%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .homepage-hero-shell {
+                padding: 0 12px;
+            }
+
+            .home-announcement {
+                min-height: 64px;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                gap: 2px 6px;
+                padding: 8px 10px;
+                font-size: 10px;
+            }
+
+            .home-announcement > span {
+                grid-column: 1 / -1;
+                grid-row: 2;
+            }
+
+            .home-announcement a {
+                grid-column: 2;
+                grid-row: 1;
+            }
+
+            .home-slider {
+                min-height: 610px;
+            }
+
+            .home-slide-image {
+                background-position: 35% center;
+            }
+
+            .home-slide-shade {
+                background: linear-gradient(180deg, rgba(20, 21, 27, .18), rgba(20, 21, 27, .62) 35%, rgba(20, 21, 27, .9));
+            }
+
+            .home-slide-shape {
+                width: 35%;
+                height: 46%;
+                opacity: .55;
+            }
+
+            .home-slide-copy {
+                top: 43%;
+                right: 7%;
+                left: 7%;
+                width: auto;
+                transform: translateY(-25%);
+            }
+
+            .home-slide-eyebrow {
+                margin-bottom: 10px;
+                font-size: 10px;
+            }
+
+            .home-slide-copy h1 {
+                max-width: 440px;
+                margin-bottom: 12px;
+                font-size: clamp(36px, 10vw, 48px);
+                letter-spacing: -1px;
+            }
+
+            .home-slide-copy p {
+                font-size: 14px;
+                line-height: 1.55;
+            }
+
+            .home-slide-cta {
+                min-height: 44px;
+                margin-top: 18px;
+                padding: 0 17px;
+                font-size: 12px;
+            }
+
+            .home-account-links {
+                bottom: 14px;
+                left: 12px;
+                width: 145px;
+                gap: 6px;
+            }
+
+            .home-account-links a {
+                min-height: 38px;
+                padding: 0 10px;
+                font-size: 12px;
+            }
+
+            .home-account-links span {
+                width: 16px;
+                height: 16px;
+                font-size: 8px;
+            }
+
+            .home-slider-controls {
+                bottom: 14px;
+                left: 170px;
+                gap: 6px;
+            }
+
+            .home-slider-controls button {
+                width: 38px;
+                height: 38px;
+                font-size: 23px;
+            }
+
+            .home-slider-dots {
+                right: 14px;
+                bottom: 82px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .home-slide,
+            .home-slide-image {
+                transition: none;
+            }
+        }
+    </style>
 
     <!--[if lte IE 9]>
       <p class="browserupgrade">
@@ -55,106 +554,88 @@
     <!-- Preloader End-->
 
     <!-- Header Start -->
-    <header class="header navbar-area">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-12">
-                    <div class="nav-inner">
-                        <!-- Start Navbar -->
-                    <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand style3" href="index-2.html">
-                    <img src="images/logo/capitai-bridge-logo.png" alt="CapitaiBridge">
-                        </a>
-
-<div id="google_translate_element"></div>
-
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
-}
-</script>
-
-<script type="text/javascript" src="../translate.google.com/translate_a/elementa0d8a0d8.html"></script>
-
-
-                            
-<button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-aria-expanded="false" aria-label="Toggle navigation">
-<span class="toggler-icon"></span>
-   <span class="toggler-icon"></span>
-                                <span class="toggler-icon"></span>
-     </button>
-    <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-    <ul id="nav" class="navbar-nav ms-auto">
-     <li class="nav-item">
-    <a href="index-2.html" class="active" aria-label="Toggle navigation">Home</a>
-            </li>
-    <li class="nav-item">
-    <a href="projects.html" aria-label="Toggle navigation">Projects</a>
-                                    </li>
-                                    </li>
-        <li class="nav-item">
-        <a href="service-details.html" aria-label="Toggle navigation">Services</a>
-                                    </li>
-                                    </li>
-        <li class="nav-item">
-        <!--<a href="blog.php" aria-label="Toggle navigation">Blog</a>-->
-                                    </li>
-        <li class="nav-item">
-        <a href="about.html" aria-label="Toggle navigation">About Us</a>
-                                    </li>
-
-        <li class="nav-item">
-        <a href="contact.html" aria-label="Toggle navigation">Contact</a>
-                                    </li>
-                                    <li class="nav-item nav-signup-item add-list-button"><a href="auth.html" class="btn">Signup</a></li>
-        </ul>
-        </div> <!-- navbar collapse -->
-                        </nav>
-                        <!-- End Navbar -->
-                    </div>
+    <header class="header navbar-area" id="home-navigation">
+        <div class="home-nav-wrap">
+            <nav class="navbar navbar-expand-lg home-nav" aria-label="Main navigation">
+                <a class="home-brand" href="index.html" aria-label="CapitaiBridge home">
+                    <span class="home-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span>CapitaiBridge</span>
+                </a>
+                <button class="navbar-toggler mobile-menu-btn home-menu-toggle" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#homeNavbar" aria-controls="homeNavbar"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="toggler-icon"></span>
+                    <span class="toggler-icon"></span>
+                    <span class="toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse home-nav-links" id="homeNavbar">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item"><a class="home-nav-link active" href="index.html" aria-current="page">Home</a></li>
+                        <li class="nav-item"><a class="home-nav-link" href="service-details.html">Services</a></li>
+                        <li class="nav-item"><a class="home-nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="home-nav-link" href="projects.html">Projects</a></li>
+                        <li class="nav-item"><a class="home-nav-link home-nav-contact" href="contact.html">Get in touch</a></li>
+                    </ul>
                 </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
+            </nav>
+        </div>
     </header>
-    <!-- Header End -->
-
-    <!-- Hero End -->
-        <!-- Header End -->
-
-    <!-- Hero End -->
-    <section id="hero-section" class="hero-area style1">
-    <div class="hero-overlay">
-    <div class="container">
-    <div class="row justify-content-center align-items-center">
-    <div class="col-lg-12 col-md-9 col-12">
-    <div class="hero-content">
-    <span class="sub_title text-uppercase wow fadeInLeft" data-wow-delay=".3s"></span>
-    <h2 class="text-uppercase wow fadeInLeft" data-wow-delay=".6s">
-    <font color="white">
-  CapitaiBridge</font>
-    </h2>
-    <h3 class="wow fadeInLeft" data-wow-delay=".9s">Simple. Transparent. Secure</h3>
-    <div class="hero-btn mt-40">
-    <a class="btn btn-one wow fadeInLeft" data-wow-delay="1.2s" href="auth.html">
-    Account Login
-    <i class="lni lni-angle-double-right"></i>
-</a>
-
-    <a class="btn btn-one wow fadeInLeft" data-wow-delay="1.2s" href="auth.html">
-    Open Account<i class="lni lni-angle-double-right">
-        
-    </i></a>
-                            </div>
-                        </div>
+    <main>
+        <section class="homepage-hero-shell" aria-label="Welcome to CapitaiBridge">
+            <div class="home-announcement">
+                <strong>Updates:</strong>
+                <span>Thoughtful ideas and fresh perspectives for what comes next.</span>
+                <a href="about.html">Discover more <span aria-hidden="true">&rsaquo;</span></a>
+            </div>
+            <div class="home-slider" aria-roledescription="carousel" aria-label="CapitaiBridge highlights">
+                <article class="home-slide is-active" aria-roledescription="slide" aria-label="1 of 3" aria-hidden="false">
+                    <div class="home-slide-image" style="background-image: url('images/homepage/slide-1.jpg')"></div>
+                    <div class="home-slide-shade"></div>
+                    <div class="home-slide-shape" aria-hidden="true"></div>
+                    <div class="home-slide-copy">
+                        <span class="home-slide-eyebrow">Ideas into impact</span>
+                        <h1>A brighter way to move forward</h1>
+                        <p>Good things happen when clear thinking meets a fresh perspective. Let’s make your next step count.</p>
+                        <a class="home-slide-cta" href="about.html">Explore our approach <span aria-hidden="true">&nbsp;&rsaquo;</span></a>
                     </div>
+                </article>
+                <article class="home-slide" aria-roledescription="slide" aria-label="2 of 3" aria-hidden="true">
+                    <div class="home-slide-image" style="background-image: url('images/homepage/slide-2.jpg')"></div>
+                    <div class="home-slide-shade"></div>
+                    <div class="home-slide-shape" aria-hidden="true"></div>
+                    <div class="home-slide-copy">
+                        <span class="home-slide-eyebrow">Made for your momentum</span>
+                        <h1>Built around your next big idea</h1>
+                        <p>Bring your ambition. We’ll bring thoughtful service and the support to help you keep moving.</p>
+                        <a class="home-slide-cta" href="projects.html">See what’s possible <span aria-hidden="true">&nbsp;&rsaquo;</span></a>
+                    </div>
+                </article>
+                <article class="home-slide" aria-roledescription="slide" aria-label="3 of 3" aria-hidden="true">
+                    <div class="home-slide-image" style="background-image: url('images/homepage/slide-3.jpg')"></div>
+                    <div class="home-slide-shade"></div>
+                    <div class="home-slide-shape" aria-hidden="true"></div>
+                    <div class="home-slide-copy">
+                        <span class="home-slide-eyebrow">A partner in progress</span>
+                        <h1>Confidence for every step ahead</h1>
+                        <p>We make the complicated feel more considered, so you can focus on the things that matter most.</p>
+                        <a class="home-slide-cta" href="contact.html">Let’s connect <span aria-hidden="true">&nbsp;&rsaquo;</span></a>
+                    </div>
+                </article>
+                <div class="home-account-links" aria-label="Account access">
+                    <a href="auth.html">Login <span aria-hidden="true">&#9654;</span></a>
+                    <a href="auth.html">Register <span aria-hidden="true">&#9654;</span></a>
+                </div>
+                <div class="home-slider-controls" aria-label="Slider controls">
+                    <button type="button" data-slide-direction="-1" aria-label="Previous slide">&larr;</button>
+                    <button type="button" data-slide-direction="1" aria-label="Next slide">&rarr;</button>
+                </div>
+                <div class="home-slider-dots" role="group" aria-label="Choose a slide">
+                    <button type="button" data-slide-index="0" aria-label="Show slide 1" aria-current="true"></button>
+                    <button type="button" data-slide-index="1" aria-label="Show slide 2" aria-current="false"></button>
+                    <button type="button" data-slide-index="2" aria-label="Show slide 3" aria-current="false"></button>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Hero End -->
-
+        </section>
     <!-- About Start -->
     <section id="about-section" class="mt-70">
         <div class="container">
@@ -696,6 +1177,7 @@ fair, and transparent.</p>
     <!-- Testimonial end -->
    <!-- Blog End --
 
+    </main>
       <!-- Footer Start  -->
   <footer id="footer-section" class="mt-115">
     <!-- Start Footer Top -->
@@ -854,12 +1336,60 @@ farmerscreditunion612@gmail.com
         'autoplayVideos': true,
     });
 </script>
+<script>
+    (function () {
+        const carousel = document.querySelector('.home-slider');
+        if (!carousel) return;
+
+        const slides = Array.from(carousel.querySelectorAll('.home-slide'));
+        const dots = Array.from(carousel.querySelectorAll('[data-slide-index]'));
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let currentSlide = 0;
+        let autoplayTimer;
+
+        function showSlide(index) {
+            currentSlide = (index + slides.length) % slides.length;
+            slides.forEach((slide, slideIndex) => {
+                const isActive = slideIndex === currentSlide;
+                slide.classList.toggle('is-active', isActive);
+                slide.setAttribute('aria-hidden', String(!isActive));
+                dots[slideIndex].setAttribute('aria-current', String(isActive));
+            });
+        }
+
+        function stopAutoplay() {
+            window.clearInterval(autoplayTimer);
+            autoplayTimer = undefined;
+        }
+
+        function startAutoplay() {
+            if (reducedMotion.matches || autoplayTimer) return;
+            autoplayTimer = window.setInterval(() => showSlide(currentSlide + 1), 6500);
+        }
+
+        carousel.querySelectorAll('[data-slide-direction]').forEach((button) => {
+            button.addEventListener('click', () => {
+                showSlide(currentSlide + Number(button.dataset.slideDirection));
+            });
+        });
+
+        dots.forEach((button) => {
+            button.addEventListener('click', () => showSlide(Number(button.dataset.slideIndex)));
+        });
+
+        carousel.addEventListener('mouseenter', stopAutoplay);
+        carousel.addEventListener('mouseleave', startAutoplay);
+        carousel.addEventListener('focusin', stopAutoplay);
+        carousel.addEventListener('focusout', (event) => {
+            if (!carousel.contains(event.relatedTarget)) startAutoplay();
+        });
+
+        startAutoplay();
+    })();
+</script>
 
 
 <!--End of Tawk.to Script-->
 </body>
 
-<!-- Mirrored from royalalliancetrustbank.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Jul 2022 17:46:37 GMT -->
-
-<!-- Mirrored from farmerscreditsunion.com/ by HTTrack Website Copier/3.x [XR&CO'2017], Sun, 12 Oct 2025 19:38:05 GMT -->
 </html>
